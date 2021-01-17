@@ -1,0 +1,42 @@
+[user]
+    name = Moshe Beladev
+	email = moshebe123@gmail.com
+[github]
+	user = moshebe
+
+[alias]
+	compare = log --oneline main..
+	author = shortlog -s -e
+	ci = commit
+	co = checkout
+    cob = checkout -b
+	br = branch
+	st = status -s
+	edit = "!vim `git ls-files -m` -p"	
+	pr = "!gh pr"
+    # list branches sorted by last modified
+    b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+
+    # list aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+[push]
+	default = simple
+[color]
+	ui = true
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[merge]
+	tool = vimdiff
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[mergetool]
+	path = nvim
+[mergetool "vimdiff"]
+	path = nvim
+
+[init]
+	defaultBranch = main
