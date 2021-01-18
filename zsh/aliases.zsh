@@ -6,10 +6,6 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias path='echo -e ${PATH//:/\\n}'
 
-# TODO: maybe can be removed
-alias python=python3
-alias pip=pip3
-
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 

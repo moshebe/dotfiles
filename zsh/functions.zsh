@@ -144,3 +144,10 @@ function taildevice() {
 		kubectl logs -f $device_log_pod_name
 	fi
 }
+
+function loadenv() {
+	if [ -f .env ]
+	then
+	export $(cat .env | sed 's/#.*//g' | xargs)
+	fi
+}
