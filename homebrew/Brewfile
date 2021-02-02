@@ -1,5 +1,5 @@
-tap "homebrew/bundle"
-tap "homebrew/cask"
+tap 'homebrew/bundle'
+tap 'homebrew/cask'
 tap 'homebrew/core'
 tap 'homebrew/services'
 
@@ -50,7 +50,6 @@ brew 'nmap'
 brew 'nnn'
 brew 'node'
 brew 'node'
-brew 'osquery'
 brew 'protoc-gen-go'
 brew 'rsync'
 brew 'rust'
@@ -70,6 +69,7 @@ cask 'google-chrome'
 cask 'google-cloud-sdk'
 cask 'iterm2'
 cask 'netnewswire'
+cask 'numi'
 cask 'slack'
 cask 'spotify'
 cask 'sublime-text'

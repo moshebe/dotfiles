@@ -11,4 +11,4 @@ install:
 	@echo "find the installers and run them iteratively"
 	find . -name install.sh | xargs -I '{}' sh -c "{}"
 	@echo "› brew bundle"
-	brew bundle --file brew/Brewfile
+	brew bundle --file homebrew/Brewfile
