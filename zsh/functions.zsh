@@ -1,5 +1,5 @@
 function contained() {
-	docker run -it --rm-v $(pwd):/workspace -w /workspace $@
+	docker run -it --rm -v $(pwd):/workspace -w /workspace $@
 } 
 # Create a new directory and enter it
 function mkd() {
@@ -151,3 +151,42 @@ function loadenv() {
 	export $(cat .env | sed 's/#.*//g' | xargs)
 	fi
 }
+
+function searchcode() {
+	phrase=$(urlencode $1) 
+	url="https://github.com/search?q=org%3Astackpulse+$phrase&type=code"
+	open $url
+}
+
+function ghpr {
+        gh pr create --title "[$(git branch --show-current | grep -oE 'SP-\d+')] $1" --body "" ${@:2}
+}
+
+function setenv() {
+	export $(grep -v '^#' .env | xargs -0)
+}
+
+function unsetenv() {
+	unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)
+}
+
+function unsetallenv() {
+	unset $(grep -v "^$" .env | sed -E 's/(.*)=.*/\1/' | sed -E 's/^#//' | xargs)	
+}
+
+
+# Redshift
+function run-redshift-sql() {
+	aws redshift-data execute-statement --database dev --db-user awsuser --cluster-identifier redshift-cluster-1 --region us-west-2 --sql "$@"
+}
+
+function fetch-redshift-result() {
+	aws redshift-data get-statement-result --region us-west-2 --id $@
+}
+
+function run-fetch-redshift-sql() {
+	run-redshift-sql $@ > /tmp/redshift.out
+	query_id=$(cat /tmp/redshift.out | jq -r ".Id")
+	fetch-redshift-result $query_id
+}
+
