@@ -13,16 +13,16 @@
 	author = shortlog -s -e
 	ci = commit
 	co = checkout
-    cob = checkout -b
+    	cob = checkout -b
 	br = branch
 	st = status -s
-	edit = "!vim `git ls-files -m` -p"	
+	edit = "!vim `git ls-files -m` -p"
+	jira = "!open https://stackpulse.atlassian.net/browse/$(git branch --show-current)"
 	pr = "!gh pr"
-    # list branches sorted by last modified
-    b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-
-    # list aliases
-    la = "!git config -l | grep alias | cut -c 7-"
+    	# list branches sorted by last modified
+    	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+    	# list aliases
+    	la = "!git config -l | grep alias | cut -c 7-"
 [push]
 	default = simple
 [color]
@@ -50,3 +50,8 @@
 	program = gpg
 [pull]
 	rebase = false
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

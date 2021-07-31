@@ -19,3 +19,5 @@ alias dbpass="kubectl get secret/stackpulsedb -o json | jq -r .data.DB_PASSWORD 
 
 alias pip=pip3
 alias python=python3
+
+alias vi=nvim

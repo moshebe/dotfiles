@@ -84,7 +84,7 @@ function rundc() {
 }
 
 function finnotify() {
-	rundc bank &
+	#rundc bank &
 	rundc psagot &
 	rundc fnx &
 }

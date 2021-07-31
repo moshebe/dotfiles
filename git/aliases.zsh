@@ -26,6 +26,11 @@ function changelog() {
 	fi
 }
 
+function tag2commit() {
+	tag=$1
+	git rev-list -n 1 $tag 
+}
+
 # Outputs the name of the current branch
 # Usage example: git pull origin $(git_current_branch)
 # Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
@@ -49,8 +54,10 @@ alias gd='git diff'
 alias ggpull='git pull origin $(git_current_branch)'
 alias ggpush='git push origin $(git_current_branch)'
 alias gl="git pull --rebase"
-
-
+alias glog="git log --graph --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
+alias gcomaster='gco master && ggpull'
+alias gfetch='git fetch --all'
+alias glasttag='git describe --tags `git rev-list --tags --max-count=1`'
 
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'

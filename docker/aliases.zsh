@@ -1,0 +1,1 @@
+alias restartdocker="killall Docker && open /Applications/Docker.app"
