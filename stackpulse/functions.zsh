@@ -101,3 +101,37 @@ spd-versioncheck() {
  echo "============================================================"
  glog -10 --all
 }
+
+orch-run-inttests() {
+	cd "$HOME/Dev/torqio/playbook-orchestrator/internal/testing"
+	go test -v --update-golden-steps --ignore-generated-fields ./...
+	echo "====== Changed golden files: ======"
+	git st | grep -E "testdata/.*golden.*"
+}
+
+function translate_project_name() {
+	project=$1
+	case $project in
+		prd | prod | production)
+			project="stackpulse-production"
+		;;
+		stg | stage | staging)
+			project="stackpulse-staging"
+		;;
+		dev | development)
+			project="stackpulse-development"
+		;;
+	esac
+
+	echo $project
+}
+
+open-error-report() {
+	project=$(translate_project_name $1)
+	open "https://console.cloud.google.com/errors?time=P30D&order=LAST_SEEN_DESC&resolution=OPEN&resolution=ACKNOWLEDGED&project=$project"
+}
+
+open-tracing() {
+	project=$(translate_project_name $1)
+	open "https://console.cloud.google.com/traces/list?project=$project"
+}
