@@ -1,6 +1,10 @@
 function contained() {
 	docker run -it --rm -v $(pwd):/workspace -w /workspace $@
+}
+function contained-priv() {
+	docker run -it --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/workspace -w /workspace $@
 } 
+
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";
