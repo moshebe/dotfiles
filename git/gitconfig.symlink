@@ -41,7 +41,6 @@
 	path = nvim
 [mergetool "vimdiff"]
 	path = nvim
-
 [init]
 	defaultBranch = main
 [commit]
@@ -55,3 +54,8 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+
+[url "git@github.com:torqio"]
+	insteadOf = https://github.com/torqio
+[url "git@github.com:stackpulse"]
+	insteadOf = https://github.com/stackpulse

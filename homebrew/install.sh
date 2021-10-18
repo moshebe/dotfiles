@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
-
+#
+# install homebrew
+#
 if test ! $(which brew)
 then
 	if [ "$(uname)" == "Darwin" ]
