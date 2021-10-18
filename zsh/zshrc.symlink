@@ -1,9 +1,32 @@
 # Dotfiles location
 DOTFILES=$HOME/.dotfiles
 WORKSPACE=$HOME/space
+DEVDIR=$HOME/dev
 
 # PATH
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/moshe/.oh-my-zsh
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git zsh-completions)
+
+#source $ZSH/oh-my-zsh.sh
+
+# add each topic folder to fpath so that they can add functions and completion scripts
+for topic_folder ($DOTFILES/*) if [ -d $topic_folder ]; then  fpath=($topic_folder $fpath); fi;
+
+# Load all stock functions (from $fpath files) called below.
+autoload -U compaudit compinit
 
 # Special dirs
 zstyle ':completion:*' special-dirs true
@@ -28,6 +51,7 @@ bindkey '^w' backward-kill-word
 # bindkey '^r' history-incremental-search-backward
 
 autoload -U edit-command-line
+
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
@@ -53,7 +77,7 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
+autoload -U compaudit compinit
 compinit
 
 # load every completion after autocomplete loads
@@ -63,3 +87,9 @@ do
 done
 
 unset config_files
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"

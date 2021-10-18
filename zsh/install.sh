@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 #
 # install oh-my-zsh
 

@@ -9,6 +9,7 @@ Plug 'morhetz/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'vim-airline/vim-airline'
 
 " Common stuff
 Plug 'tpope/vim-surround'
@@ -27,6 +28,7 @@ Plug 'godlygeek/tabular'
 
 " Search and navigation
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+
 Plug 'ojroques/nvim-lspfuzzy' " FZF navigation for LSP
 Plug 'unblevable/quick-scope'
 Plug 'google/vim-searchindex'
@@ -78,6 +80,7 @@ set undofile
 set undodir=$HOME/.vim/undo
 set noshowcmd
 set cursorline
+
 set cursorcolumn
 set autowrite
 set backspace=2
@@ -206,4 +209,5 @@ vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
 autocmd FileType ruby setlocal shiftwidth=2 sts=2 expandtab smartindent
 autocmd FileType yaml setlocal shiftwidth=2 sts=2 expandtab smartindent
 autocmd FileType html setlocal shiftwidth=2 sts=2 expandtab smartindent
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 autocmd BufWritePost *.go lua vim.lsp.buf.formatting()

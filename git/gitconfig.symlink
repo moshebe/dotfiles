@@ -1,19 +1,28 @@
 [user]
-        name = Or Elimelech
-	email = vic3lord@users.noreply.github.com
-	signingkey = F097B3449561603A
+    name = Moshe Beladev
+	email = moshebe123@gmail.com
+	signingkey = 1E1D41EC4DBAD44F
 [github]
-	user = vic3lord
+	user = moshebe
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
 [alias]
-	compare = log --oneline master..
+	compare = log --oneline main..
 	author = shortlog -s -e
 	ci = commit
 	co = checkout
+    cob = checkout -b
 	br = branch
 	st = status -s
-	edit = !vim $(git ls-files -m) -p
-	flux = log --author="flux" --oneline
-	pr = !gh pr create -a @me -f
+	edit = "!vim `git ls-files -m` -p"
+	jira = "!open https://stackpulse.atlassian.net/browse/$(git branch --show-current)"
+	pr = "!gh pr"
+	# list branches sorted by last modified
+	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+	# list aliases
+	la = "!git config -l | grep alias | cut -c 7-"
 [push]
 	default = simple
 [color]
@@ -36,3 +45,16 @@
 	insteadOf = https://github.com/torqio
 [url "git@github.com:stackpulse"]
 	insteadOf = https://github.com/stackpulse
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[pull]
+	rebase = false
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
