@@ -1,4 +1,5 @@
 export GIT_AUTHOR="Moshe Beladev"
+alias gl="git pull --rebase"
 
 # gitignore.io
 # gi list to get all supported types

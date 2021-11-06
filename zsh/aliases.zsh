@@ -1,6 +1,7 @@
 alias reload!=". ~/.zshrc"
 alias ..="cd .."
 alias ...="cd ../.."
+
 alias ll='ls -alF'
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
