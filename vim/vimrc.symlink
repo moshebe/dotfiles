@@ -9,7 +9,6 @@ Plug 'morhetz/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'vim-airline/vim-airline'
 
 " Common stuff
 Plug 'tpope/vim-surround'
@@ -93,7 +92,7 @@ set showmatch
 set hlsearch
 set smartcase " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set ignorecase
-set clipboard+=unnamedplus " add clipboard support
+" set clipboard+=unnamedplus " add clipboard support
 nnoremap <Space> :let @/=""<CR>
 
 " custom mappings
