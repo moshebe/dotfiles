@@ -21,3 +21,7 @@ alias pip=pip3
 alias python=python3
 
 alias vi=nvim
+
+alias docker-clean-exited='docker ps -a -f status=exited -q | xargs docker rm'
+alias docker-clean-volumes='docker volume rm $(docker volume ls -q)'
+alias docker-clean='docker-clean-exited; docker-clean-volumes; docker system prune -f'
