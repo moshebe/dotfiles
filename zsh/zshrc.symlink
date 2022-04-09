@@ -48,7 +48,7 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 
 # ctrl-r starts searching history backward (overridden by fzf)
-bindkey '^r' history-incremental-search-backward
+# bindkey '^r' history-incremental-search-backward
 
 autoload -U edit-command-line
 
@@ -87,10 +87,10 @@ do
 done
 
 unset config_files
-
 source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
+

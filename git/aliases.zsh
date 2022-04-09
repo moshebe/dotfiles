@@ -47,6 +47,7 @@ function git_current_branch() {
 }
 
 alias g='git'
+alias gti='git'
 alias ga='git add'
 alias gaa='git add --all'
 alias gco='git checkout'

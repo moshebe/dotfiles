@@ -21,3 +21,10 @@ alias pip=pip3
 alias python=python3
 
 alias vi=nvim
+
+alias dockerclean="docker ps -a -q | xargs docker rm --force; docker system prune -f"
+
+alias slackrune2e='echo "/torq run Run e2e test suite" | pbcopy'
+
+alias postgres-port="docker ps -a | grep postgres | awk '{print \$1}' | xargs -I{} docker port {} 5432/tcp | awk -F":" '{print \$2}'"
+

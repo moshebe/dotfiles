@@ -13,16 +13,16 @@
 	author = shortlog -s -e
 	ci = commit
 	co = checkout
-    	cob = checkout -b
+    cob = checkout -b
 	br = branch
 	st = status -s
 	edit = "!vim `git ls-files -m` -p"
 	jira = "!open https://stackpulse.atlassian.net/browse/$(git branch --show-current)"
 	pr = "!gh pr"
-    	# list branches sorted by last modified
-    	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-    	# list aliases
-    	la = "!git config -l | grep alias | cut -c 7-"
+	# list branches sorted by last modified
+	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+	# list aliases
+	la = "!git config -l | grep alias | cut -c 7-"
 [push]
 	default = simple
 [color]
@@ -41,11 +41,14 @@
 	path = nvim
 [mergetool "vimdiff"]
 	path = nvim
-
+[url "git@github.com:torqio"]
+	insteadOf = https://github.com/torqio
+[url "git@github.com:stackpulse"]
+	insteadOf = https://github.com/stackpulse
 [init]
 	defaultBranch = main
 [commit]
-	gpgsign = true
+	gpgsign = false
 [gpg]
 	program = gpg
 [pull]
