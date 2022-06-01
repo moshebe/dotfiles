@@ -158,7 +158,7 @@ function loadenv() {
 
 function searchcode() {
 	phrase=$(urlencode $1) 
-	url="https://github.com/search?q=org%3Astackpulse+$phrase&type=code"
+	url="https://github.com/search?q=org%3Atorqio+$phrase&type=code"
 	open $url
 }
 
