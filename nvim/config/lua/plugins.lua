@@ -174,21 +174,6 @@ return require('packer').startup(function()
 
   -- Language specific plugins
   use {
-    'hashivim/vim-terraform',
-    ft = { 'terraform' },
-  }
-
-  use {
-    'rust-lang/rust.vim',
-    ft = { 'rust' },
-  }
-
-  use {
-    'elixir-lang/vim-elixir',
-    ft = { 'elixir' },
-  }
-
-  use {
     'jjo/vim-cue',
     ft = { 'cue' },
   }

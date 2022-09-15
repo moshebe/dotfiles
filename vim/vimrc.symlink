@@ -49,9 +49,6 @@ Plug 'notomo/cmp-neosnippet'
 Plug 'ray-x/cmp-treesitter'
 
 " Language specific plugins
-Plug 'hashivim/vim-terraform'
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
 
 " Add plugins to runtime
 call plug#end()
@@ -181,9 +178,6 @@ nnoremap <Leader>ca     <cmd>lua vim.lsp.buf.code_action()<CR>
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" rust.vim
-let g:rustfmt_autosave = 1
 
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'
