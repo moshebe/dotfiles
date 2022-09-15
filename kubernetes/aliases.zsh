@@ -3,6 +3,8 @@ alias kca='kubectl get --all-namespaces'
 alias kbl='kubectl'
 alias kblctx='kubectl config current-context'
 
-function kblrename() {
-	kubectl config rename-context $1 $2
+function cronjobjob() {
+	local job=$1
+	local ns=${2:-default}
+	kubectl -n $ns create job --from=cronjob/$job
 }
