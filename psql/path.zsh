@@ -1,1 +1,1 @@
-export PATH="/usr/local/Cellar/libpq/13.1/bin:$PATH"
+export PATH="$(brew --prefix)/opt/libpq/bin:$PATH"

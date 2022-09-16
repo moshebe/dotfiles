@@ -9,7 +9,7 @@ kubectl config rename-context <context_name> dev
 
 # switch between dev and prod contexts
 kubectl config use-context dev
-kubectl config use-context prod
+kubectl config use-context prd
 
 # get all application pods
 kubectl get pods
