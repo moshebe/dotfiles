@@ -1,11 +1,5 @@
 local map = vim.api.nvim_set_keymap
 
--- Using tmux/screen with ctrl-a 
-map('n', '+', '<C-a>', { noremap = true })
-map('n', '-', '<C-x>', { noremap = true })
-map('x', '+', 'g<C-a>', { noremap = true })
-map('x', '-', 'g<C-x>', { noremap = true })
-
 -- LSP
 local opts = { noremap = true, silent = true }
 map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
