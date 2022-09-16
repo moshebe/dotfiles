@@ -21,7 +21,7 @@ opt.showmatch = true
 opt.hlsearch = true
 opt.smartcase = true -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 opt.ignorecase = true
-opt.clipboard = opt.clipboard + 'unnamedplus' -- add clipboard support
+-- opt.clipboard = opt.clipboard + 'unnamedplus' -- add clipboard support
 
 -- Set colorscheme
 vim.cmd.colorscheme('gruvbox')
