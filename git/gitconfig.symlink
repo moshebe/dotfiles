@@ -1,28 +1,27 @@
 [user]
     name = Moshe Beladev
-	email = moshebe123@gmail.com
-	signingkey = 1E1D41EC4DBAD44F
+	email = moshebe@users.noreply.github.com
+	signingKey = ~/.ssh/id_ed25519
 [github]
 	user = moshebe
-
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
-
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.git_signers
 [alias]
-	compare = log --oneline main..
+	compare = log --oneline master..
 	author = shortlog -s -e
 	ci = commit
 	co = checkout
-    cob = checkout -b
 	br = branch
 	st = status -s
-	edit = "!vim `git ls-files -m` -p"
-	jira = "!open https://stackpulse.atlassian.net/browse/$(git branch --show-current)"
-	pr = "!gh pr"
-	# list branches sorted by last modified
-	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-	# list aliases
-	la = "!git config -l | grep alias | cut -c 7-"
+	edit = !nvim $(git ls-files -m) -p
+	flux = log --author="flux" --oneline
+	pr = !pull-request
+	wip = commit -am 'wip'
+	web = !gh pr view -w
 [push]
 	default = simple
 [color]
@@ -39,22 +38,10 @@
 	prompt = false
 [mergetool]
 	path = nvim
+	keepBackup = false
 [mergetool "vimdiff"]
 	path = nvim
 [url "git@github.com:torqio"]
 	insteadOf = https://github.com/torqio
 [url "git@github.com:stackpulse"]
 	insteadOf = https://github.com/stackpulse
-[init]
-	defaultBranch = main
-[commit]
-	gpgsign = false
-[gpg]
-	program = gpg
-[pull]
-	rebase = false
-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
