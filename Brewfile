@@ -94,6 +94,7 @@ brew 'tig'
 brew 'tree'
 brew 'vault'
 brew 'watch'
+brew 'tmux'
 brew 'youtube-dl'
 
 # Casks
