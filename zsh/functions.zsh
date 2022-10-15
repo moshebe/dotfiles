@@ -177,3 +177,9 @@ function unsetallenv() {
 function yaml2json {
   python -c 'import sys, yaml, json; print(json.dumps(yaml.safe_load(sys.stdin.read())))'
 }
+
+function runcdc() {
+	cd "$HOME/dev/moshebe/$1"
+	docker-compose up --remove-orphans
+	cd -
+}
