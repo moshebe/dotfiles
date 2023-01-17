@@ -81,12 +81,6 @@ manpreview() { man -t $* | open -f -a /Applications/Preview.app/ }
 
 function xmanpage() { open x-man-page://$@ ; }
 
-function rundc() {
-	cd "${DEVDIR}/${1}"
-	docker-compose up --remove-orphans
-	cd -
-}
-
 function finnotify() {
 	#rundc bank &
 	rundc psagot &
@@ -178,7 +172,7 @@ function yaml2json {
   python -c 'import sys, yaml, json; print(json.dumps(yaml.safe_load(sys.stdin.read())))'
 }
 
-function runcdc() {
+function rundc() {
 	cd "$HOME/dev/moshebe/$1"
 	docker-compose up --remove-orphans
 	cd -
