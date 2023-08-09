@@ -14,3 +14,5 @@ alias urldecode='python3 -c "import sys, urllib.parse as up; print(up.unquote_pl
 alias new-uuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n'"
 
 alias finnotify="curl https://agile-wildwood-94022.herokuapp.com/run"
+
+alias daily-update="b &; gcloud components update --quiet"

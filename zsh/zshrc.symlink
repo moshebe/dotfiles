@@ -70,3 +70,5 @@ do
 done
 
 unset config_files
+
+source /Users/moshebeladev/.docker/init-zsh.sh || true # Added by Docker Desktop
