@@ -15,4 +15,4 @@ alias new-uuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n'"
 
 alias finnotify="curl https://agile-wildwood-94022.herokuapp.com/run"
 
-alias daily-update="b &; gcloud components update --quiet"
+alias daily-update="b; gcloud components update --quiet"
