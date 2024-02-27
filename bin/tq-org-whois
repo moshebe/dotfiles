@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+grep "$1" $HOME/Dev/torqio/orgs.csv
