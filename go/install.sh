@@ -5,6 +5,7 @@ readonly PACKAGES=(
 	golang.org/x/tools/cmd/goimports@latest
 	github.com/golang/mock/mockgen@latest
 	go install github.com/go-jira/jira/cmd/jira@latest
+	github.com/go-delve/delve/cmd/dlv@latest
 )
 
 if which go > /dev/null 2>&1
