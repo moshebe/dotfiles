@@ -1,7 +1,7 @@
 [user]
     name = Moshe Beladev
 	email = moshebe123@gmail.com
-	signingkey = 1E1D41EC4DBAD44F
+	signingkey = 9D01EA3A5491204C89F5E483B7947FE593D6A61B
 [github]
 	user = moshebe
 
@@ -50,7 +50,7 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = gpg
+	program = /opt/homebrew/bin/gpg
 [pull]
 	rebase = false
 [filter "lfs"]

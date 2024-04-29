@@ -5,7 +5,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d . --color=never'
 
 # Open as tmux pane
-export FZF_TMUX=1
+export FZF_TMUX=0
 
 export FZF_DEFAULT_OPTS="
 	--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
