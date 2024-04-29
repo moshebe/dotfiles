@@ -7,7 +7,7 @@ if test ! $(which brew)
 then
 	if [ "$(uname)" == "Darwin" ]
 	then
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"		
 	else
 		echo "Unsupported OS: $(uname)"
 	fi
