@@ -9,7 +9,6 @@ Plug 'morhetz/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'vim-airline/vim-airline'
 
 " Common stuff
 Plug 'tpope/vim-surround'

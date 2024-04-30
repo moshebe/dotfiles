@@ -4,7 +4,7 @@ WORKSPACE=$HOME/space
 DEVDIR=$HOME/dev
 
 # PATH
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$DOTFILES/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/moshe/.oh-my-zsh

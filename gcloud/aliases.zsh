@@ -1,5 +1,4 @@
-#TODO: check if needed
-# export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export CLOUDSDK_PYTHON=python3
 
 alias g='gcloud config configurations activate'
