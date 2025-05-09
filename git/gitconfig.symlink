@@ -5,9 +5,6 @@
 [github]
 	user = moshebe
 
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
-
 [alias]
 	compare = log --oneline main..
 	author = shortlog -s -e
@@ -41,10 +38,6 @@
 	path = nvim
 [mergetool "vimdiff"]
 	path = nvim
-[url "git@github.com:torqio"]
-	insteadOf = https://github.com/torqio
-[url "git@github.com:stackpulse"]
-	insteadOf = https://github.com/stackpulse
 [init]
 	defaultBranch = main
 [commit]
@@ -58,3 +51,13 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[url "https://"]
+	insteadOf = git://
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
