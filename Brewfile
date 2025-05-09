@@ -27,7 +27,7 @@ brew 'mercurial'
 brew 'minikube'
 brew 'hyperkit'
 brew 'mkcert'
-brew 'neovim'
+brew 'neovim', args: ['HEAD']
 brew 'newsboat'
 brew 'nmap'
 brew 'node'

@@ -16,6 +16,9 @@
 	edit = "!vim `git ls-files -m` -p"
 	jira = "!open https://stackpulse.atlassian.net/browse/$(git branch --show-current)"
 	pr = "!gh pr"
+	wip = commit -am 'wip'
+	web = !gh pr view -w
+	fswitch = !git branch | fzf | xargs git switch
 	# list branches sorted by last modified
 	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 	# list aliases
@@ -30,14 +33,17 @@
 	remote = green
 [merge]
 	tool = vimdiff
+	conflictStyle = zdiff3
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
 [mergetool]
 	path = nvim
+	keepBackup = false
 [mergetool "vimdiff"]
 	path = nvim
+	layout = "(LOCAL,REMOTE)/MERGED"
 [init]
 	defaultBranch = main
 [commit]
