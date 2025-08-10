@@ -84,17 +84,17 @@ update: ## Update all tools and packages
 	@brew upgrade
 	@brew cleanup
 	@echo "==> Updating development tools..."
-	@rustup update
+	@source ~/.cargo/env && rustup update
 	@cargo install-update -a
 	@npm update -g
-	@pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U
+	@pip3 list --outdated | awk 'NR>2 {print $$1}' | xargs -r -n1 pip3 install -U
 	@echo "Updating Go packages..."
-	@go list -f '{{if not (or .Main .Indirect)}}{{.Path}}{{end}}' -m all | xargs -I{} go get -u {}
+	@if [ -f go.mod ]; then go list -f '{{if not (or .Main .Indirect)}}{{.Path}}{{end}}' -m all | xargs -I{} go get -u {}; else echo "No go.mod found, skipping Go package updates"; fi
 	@echo "Updating Go tools..."
 	@go install golang.org/x/tools/gopls@latest
 	@go install github.com/go-delve/delve/cmd/dlv@latest
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-	@go install github.com/cosmtrek/air@latest
+	@go install github.com/air-verse/air@latest
 	@go install github.com/jesseduffield/lazygit@latest
 	@echo "Update complete!"
 
