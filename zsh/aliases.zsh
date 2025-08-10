@@ -1,26 +1,134 @@
-alias reload!=". ~/.zshrc"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ll='ls -alF'
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ~='cd ~'
+alias -- -='cd -'
+
+# Modern replacements
+alias ls='exa'                                                          # Modern ls
+alias l='exa -lbF'                                                     # List, size, type
+alias ll='exa -lbGF'                                                   # Long list
+alias llm='exa -lbGF --sort=modified'                                 # Long list, modified date sort
+alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale' # All list
+alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # All + extended list
+alias tree='exa --tree'                                               # Tree view
+alias cat='bat'                                                       # Modern cat
+alias grep='rg'                                                       # Modern grep
+alias find='fd'                                                       # Modern find
+alias top='htop'                                                      # Modern top
+alias du='dust'                                                       # Modern du
+alias df='duf'                                                        # Modern df
+alias ps='procs'                                                      # Modern ps
+
+# Git
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gcn!='git commit -v --no-edit --amend'
+alias gco='git checkout'
+alias gd='git diff'
+alias gf='git fetch'
+alias gl='git pull'
+alias gp='git push'
+alias gst='git status'
+alias glog='git log --oneline --decorate --graph'
+
+# Docker
+alias d='docker'
+alias dc='docker compose'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias di='docker images'
+alias dex='docker exec -it'
+alias dprune='docker system prune -af'
+
+# Kubernetes
+alias k='kubectl'
+alias kx='kubectx'
+alias kn='kubens'
+alias kg='kubectl get'
+alias kd='kubectl describe'
+alias kl='kubectl logs'
+alias kex='kubectl exec -it'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get services'
+alias kgd='kubectl get deployments'
+alias kgi='kubectl get ingress'
+
+# Terraform
+alias tf='terraform'
+alias tfi='terraform init'
+alias tfp='terraform plan'
+alias tfa='terraform apply'
+alias tfd='terraform destroy'
+alias tfw='terraform workspace'
+alias tfws='terraform workspace select'
+alias tfwl='terraform workspace list'
+
+# Development
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+alias py='python3'
+alias pip='pip3'
+alias node='node'
+alias npm='npm'
+alias pn='pnpm'
+alias yarn='yarn'
+
+# System
+alias reload='source ~/.zshrc'
 alias path='echo -e ${PATH//:/\\n}'
+alias ports='lsof -i -P -n | grep LISTEN'
+alias myip='curl http://ipecho.net/plain; echo'
+alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias cpwd='pwd | pbcopy'
+alias mkdir='mkdir -p'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias please='sudo'
+alias weather='curl wttr.in'
 
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
+# Network
+alias ping='ping -c 5'
+alias wget='wget -c'
+alias curl='curl -L'
+alias hosts='sudo nvim /etc/hosts'
+alias ports='netstat -tulanp'
 
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+# Utilities
+alias c='clear'
+alias h='history'
+alias j='jobs -l'
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+alias week='date +%V'
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-alias dbdevproxy="cloud_sql_proxy -instances=stackpulse-development:europe-west1:stackpulsedb=tcp:5432"
-alias dbpass="kubectl get secret/stackpulsedb -o json | jq -r .data.DB_PASSWORD | base64 --decode"
+# Directory shortcuts
+alias dotfiles='cd $DOTFILES'
+alias workspace='cd $WORKSPACE'
+alias dev='cd $DEVDIR'
+alias downloads='cd ~/Downloads'
+alias desktop='cd ~/Desktop'
+alias documents='cd ~/Documents'
 
-alias pip=pip3
-alias python=python3
+# Quick edits
+alias zshrc='${EDITOR} ~/.zshrc'
+alias vimrc='${EDITOR} ~/.config/nvim/init.lua'
+alias gitconfig='${EDITOR} ~/.gitconfig'
+alias hosts='sudo ${EDITOR} /etc/hosts'
 
-alias vi=nvim
-
-alias docker-clean-exited='docker ps -a -f status=exited -q | xargs docker rm'
-alias docker-clean-volumes='docker volume rm $(docker volume ls -q)'
-alias docker-clean='docker-clean-exited; docker-clean-volumes; docker system prune -f'
-
-alias sshvm='sshpass -p ubuntu ssh ubuntu@localhost -p 22022'
+# Misc
+alias update='brew update && brew upgrade && brew cleanup'
+alias cleanup='brew cleanup && docker system prune -f'
+alias reloadshell='source ~/.zshrc'
+alias cls='clear'

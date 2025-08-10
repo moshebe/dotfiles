@@ -1,110 +1,140 @@
-# Dotfiles location
-DOTFILES=$HOME/.dotfiles
-WORKSPACE=$HOME/space
-DEVDIR=$HOME/dev
+# Environment variables
+export DOTFILES=$HOME/.dotfiles
+export WORKSPACE=$HOME/space
+export DEVDIR=$HOME/dev
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
 
-# PATH
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$DOTFILES/bin"
+# Path configuration
+path=(
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/bin
+  /bin
+  /usr/sbin
+  /sbin
+  $DOTFILES/bin
+  $path
+)
 
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/moshe/.oh-my-zsh
+# Remove duplicate paths
+typeset -U path
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# History configuration
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=10000
+setopt extended_history       # Record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # Delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups      # Ignore duplicated commands history list
+setopt hist_ignore_space     # Ignore commands that start with space
+setopt hist_verify           # Show command with history expansion to user before running it
+setopt share_history         # Share command history data
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# plugins=(git zsh-completions)
+# Directory navigation
+setopt auto_cd              # If command is a path, cd into it
+setopt auto_pushd          # Push the old directory onto the stack on cd
+setopt pushd_ignore_dups   # Do not store duplicates in the stack
+setopt pushd_minus         # Exchanges meanings of +/- when used with a number to specify a dir in the stack
 
-#source $ZSH/oh-my-zsh.sh
+# Completion system
+autoload -Uz compinit
+compinit -u
 
-# add each topic folder to fpath so that they can add functions and completion scripts
-for topic_folder ($DOTFILES/*) if [ -d $topic_folder ]; then  fpath=($topic_folder $fpath); fi;
+# Add each topic folder to fpath
+for topic_folder ($DOTFILES/*) if [ -d $topic_folder ]; then fpath=($topic_folder $fpath); fi;
 
-# Load all stock functions (from $fpath files) called below.
-autoload -U compaudit compinit
+# Load completions
+for file in ${(M)config_files:#*/completion.zsh}; do
+  source $file
+done
 
-# Special dirs
+# Enable menu selection
+zstyle ':completion:*' menu select
 zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive completion
 
-# vi-mode
+# Vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
-# Use vim cli mode
-bindkey '^P' up-history
-bindkey '^N' down-history
+# Better searching in command mode
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
 
-# backspace and ^h working even after
-# returning from command mode
+# Backspace and ^h working even after returning from command mode
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 
-# ctrl-w removed word backwards
+# Ctrl-w removed word backwards
 bindkey '^w' backward-kill-word
 
-# ctrl-r starts searching history backward (overridden by fzf)
-# bindkey '^r' history-incremental-search-backward
-
+# Edit command in editor
 autoload -U edit-command-line
-
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
-fi
+# Load Starship prompt
+eval "$(starship init zsh)"
 
-# all of our zsh files
+# Load FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Load zoxide
+eval "$(zoxide init zsh)"
+
+# Load direnv
+eval "$(direnv hook zsh)"
+
+# Load all configuration files
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
 
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
+# Load path files first
+for file in ${(M)config_files:#*/path.zsh}; do
   source $file
 done
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
+# Load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
   source $file
 done
 
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compaudit compinit
-compinit
+# Load private configuration
+if [[ -a ~/.localrc ]]; then
+  source ~/.localrc
+fi
 
-# load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
+# Load private tokens
+if [[ -f "$HOME/.private_tokens" ]]; then
+  source "$HOME/.private_tokens"
+fi
 
-unset config_files
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
 
+# Java Environment
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 
-
-export NVM_DIR="$HOME/.nvm"
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-export PATH="$PATH:/Users/moshebeladev/bin"
-
-
-# Load private tokens if they exist
-if [[ -f "$HOME/.private_tokens" ]]; then
-  source "$HOME/.private_tokens"
+# Python Environment
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
 fi
+
+# Go Environment
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
+# Rust Environment
+source "$HOME/.cargo/env"
 
 # pnpm
 export PNPM_HOME="/Users/moshebeladev/Library/pnpm"
@@ -112,5 +142,13 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
-source "/Users/moshebeladev/dev/torqio/app/local_env/app_dotfile.sh"
+
+# Google Cloud SDK
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+# Load Torq environment if available
+[[ -f "$HOME/dev/torqio/app/local_env/app_dotfile.sh" ]] && source "$HOME/dev/torqio/app/local_env/app_dotfile.sh"
+
+# Load any additional local configuration
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
