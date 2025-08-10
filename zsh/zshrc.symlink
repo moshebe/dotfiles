@@ -99,3 +99,18 @@ export NVM_DIR="$HOME/.nvm"
     [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
     [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 export PATH="$PATH:/Users/moshebeladev/bin"
+
+
+# Load private tokens if they exist
+if [[ -f "$HOME/.private_tokens" ]]; then
+  source "$HOME/.private_tokens"
+fi
+
+# pnpm
+export PNPM_HOME="/Users/moshebeladev/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+source "/Users/moshebeladev/dev/torqio/app/local_env/app_dotfile.sh"
