@@ -65,7 +65,7 @@ go install \
     golang.org/x/tools/gopls@latest \
     github.com/go-delve/delve/cmd/dlv@latest \
     github.com/golangci/golangci-lint/cmd/golangci-lint@latest \
-    github.com/cosmtrek/air@latest \
+    github.com/air-verse/air@latest \
     github.com/jesseduffield/lazygit@latest
 
 # Install additional tools
