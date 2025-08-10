@@ -1,9 +1,6 @@
 # Taps
 tap 'homebrew/bundle'
-tap 'homebrew/core'
 tap 'homebrew/services'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
 
 # Development Tools
 brew 'git'                   # Version control
@@ -13,9 +10,9 @@ brew 'tmux'                 # Terminal multiplexer
 brew 'fzf'                  # Fuzzy finder
 brew 'ripgrep'              # Modern grep
 brew 'bat'                  # Better cat
-brew 'exa'                  # Modern ls
+brew 'eza'                  # Modern ls (successor to exa)
 brew 'fd'                   # Modern find
-brew 'delta'                # Better git diff
+brew 'git-delta'            # Better git diff
 brew 'lazygit'              # Terminal UI for git
 brew 'difftastic'           # Modern diff tool
 
@@ -25,7 +22,8 @@ brew 'node'                 # Node.js
 brew 'rust'                 # Rust language
 brew 'python'              # Python
 brew 'elixir'              # Elixir language
-brew 'bun'                 # Fast JavaScript runtime
+brew 'deno'                # Modern JavaScript runtime
+brew "oven-sh/bun/bun"     # Fast JavaScript runtime
 
 # Cloud and Infrastructure
 brew 'kubectl'             # Kubernetes CLI
@@ -33,14 +31,14 @@ brew 'kubectx'            # Kubernetes context switcher
 brew 'k9s'                # Kubernetes TUI
 brew 'helm'               # Kubernetes package manager
 brew 'terraform'          # Infrastructure as code
-brew 'aws-cli'           # AWS CLI
+brew 'awscli'            # AWS CLI
 brew 'azure-cli'         # Azure CLI
-brew 'google-cloud-sdk'  # Google Cloud CLI
 
 # Database Tools
 brew 'postgresql@15'      # PostgreSQL
 brew 'redis'             # Redis
-brew 'mongodb-community' # MongoDB
+tap 'mongodb/brew'       # MongoDB tap
+brew 'mongodb-community@7.0'  # MongoDB
 
 # Terminal Utilities
 brew 'zoxide'            # Smart cd command
@@ -48,6 +46,7 @@ brew 'starship'         # Cross-shell prompt
 brew 'jq'               # JSON processor
 brew 'yq'               # YAML processor
 brew 'htop'             # Process viewer
+brew 'tldr'             # Simplified man pages
 brew 'tree'             # Directory tree
 brew 'watch'            # Watch command
 brew 'wget'             # File downloader
@@ -66,9 +65,9 @@ brew 'ffmpeg'           # Media processor
 brew 'yt-dlp'          # Modern youtube-dl
 
 # Development Fonts
-cask 'font-fira-code'
-cask 'font-jetbrains-mono'
-cask 'font-hack-nerd-font'
+cask "font-fira-code-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-hack-nerd-font"
 
 # Applications
 cask 'alacritty'        # Modern terminal
@@ -79,5 +78,9 @@ cask 'firefox'          # Browser
 cask 'tableplus'        # Database GUI
 cask 'raycast'          # Spotlight replacement
 cask 'rectangle'        # Window manager
+cask 'iina'             # Media player
 cask 'obsidian'         # Note taking
 cask 'slack'            # Team communication
+
+# Google Cloud SDK
+cask 'google-cloud-sdk' # Google Cloud CLI
