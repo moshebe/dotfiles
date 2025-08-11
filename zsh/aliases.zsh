@@ -14,8 +14,6 @@ alias llm='exa -lbGF --sort=modified'                                 # Long lis
 alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale' # All list
 alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # All + extended list
 alias tree='exa --tree'                                               # Tree view
-alias cat='bat'                                                       # Modern cat
-alias grep='rg'                                                       # Modern grep
 alias find='fd'                                                       # Modern find
 alias top='htop'                                                      # Modern top
 alias du='dust'                                                       # Modern du
@@ -83,7 +81,7 @@ alias pn='pnpm'
 alias yarn='yarn'
 
 # System
-alias reload='source ~/.zshrc'
+alias reload!='source ~/.zshrc'
 alias path='echo -e ${PATH//:/\\n}'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias myip='curl http://ipecho.net/plain; echo'
@@ -130,5 +128,4 @@ alias hosts='sudo ${EDITOR} /etc/hosts'
 # Misc
 alias update='brew update && brew upgrade && brew cleanup'
 alias cleanup='brew cleanup && docker system prune -f'
-alias reloadshell='source ~/.zshrc'
 alias cls='clear'
