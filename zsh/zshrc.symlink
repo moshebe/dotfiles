@@ -40,9 +40,13 @@ setopt auto_pushd          # Push the old directory onto the stack on cd
 setopt pushd_ignore_dups   # Do not store duplicates in the stack
 setopt pushd_minus         # Exchanges meanings of +/- when used with a number to specify a dir in the stack
 
-# Completion system
+# Completion system with caching (recompiles only once per day)
 autoload -Uz compinit
-compinit -u
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null) ]; then
+  compinit -u
+else
+  compinit -C -u
+fi
 
 # Add each topic folder to fpath
 for topic_folder ($DOTFILES/*) if [ -d $topic_folder ]; then fpath=($topic_folder $fpath); fi;
@@ -91,6 +95,7 @@ eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
 
 # Load all configuration files
+# Note: This includes zsh/lazy-load.zsh which sets up lazy-loading for NVM, jenv, pyenv, gcloud
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
 
@@ -114,27 +119,15 @@ if [[ -f "$HOME/.private_tokens" ]]; then
   source "$HOME/.private_tokens"
 fi
 
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
-
-# Java Environment
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
-
-# Python Environment
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# NVM, jenv, pyenv are lazy-loaded via zsh/lazy-load.zsh
+# This saves ~1.5s on startup - they load automatically when you use them
 
 # Go Environment
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Rust Environment
-source "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # pnpm
 export PNPM_HOME="/Users/moshebeladev/Library/pnpm"
@@ -143,19 +136,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# Google Cloud SDK
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+# Google Cloud SDK - lazy-loaded via zsh/lazy-load.zsh
+# Loads automatically when you use gcloud/gsutil/bq commands
 
 # Load Torq environment if available
 [[ -f "$HOME/dev/torqio/app/local_env/app_dotfile.sh" ]] && source "$HOME/dev/torqio/app/local_env/app_dotfile.sh"
 
 # Load any additional local configuration
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-# pnpm
-export PNPM_HOME="/Users/moshebeladev/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end

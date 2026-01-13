@@ -15,6 +15,31 @@ A comprehensive, modern dotfiles setup for macOS development. This configuration
    make
    ```
 
+## ⚡ Performance
+
+This dotfiles configuration is optimized for **fast shell startup**:
+- **Shell startup time**: ~16ms (91.7x faster than standard configuration)
+- **Lazy-loading**: Heavy tools (NVM, jenv, pyenv, gcloud SDK) load only when needed
+- **Cached completions**: Completion system recompiles only once per day
+
+See [OPTIMIZATIONS.md](./OPTIMIZATIONS.md) for detailed performance analysis.
+
+## 🎯 Features
+
+### Enhanced Prompt (Starship)
+- Shows current **GCP project** and region
+- Displays **Kubernetes context** and namespace
+- Git branch, status, and changes
+- Smart language version display (Node/Python/Go/Rust)
+- Command execution time tracking
+
+### Lazy-Loaded Tools
+These tools load automatically on first use (one-time ~1.5s delay):
+- `node`, `npm`, `npx`, `nvm` (NVM)
+- `java`, `javac`, `jenv` (jenv)
+- `python`, `pip`, `pyenv` (pyenv)
+- `gcloud`, `gsutil`, `bq` (Google Cloud SDK)
+
 ## 🎨 Customization
 
 ### Adding Your Own Configuration

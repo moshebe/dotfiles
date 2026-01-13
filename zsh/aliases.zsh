@@ -47,7 +47,7 @@ alias dex='docker exec -it'
 alias dprune='docker system prune -af'
 
 # Kubernetes
-alias k='kubectl'
+alias k='kubectl config use-context'
 alias kx='kubectx'
 alias kn='kubens'
 alias kg='kubectl get'
@@ -74,9 +74,8 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias py='python3'
-alias pip='pip3'
-alias node='node'
-alias npm='npm'
+# Note: pip, node, npm are lazy-loaded via zsh/lazy-load.zsh
+# Do not alias them here or it will conflict with lazy-loading
 alias pn='pnpm'
 alias yarn='yarn'
 
