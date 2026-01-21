@@ -10,7 +10,7 @@ require("mason-lspconfig").setup({
     "lua_ls",
     "gopls",
     "rust_analyzer",
-    "tsserver",
+    "ts_ls",
     "pyright",
     "jsonls",
     "yamlls",
@@ -154,7 +154,7 @@ rt.setup({
 })
 
 -- TypeScript/JavaScript
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }

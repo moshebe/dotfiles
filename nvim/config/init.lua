@@ -1,5 +1,9 @@
-require('plugins')
+-- Disable netrw before anything else
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 require('options')
+require('plugins')
 require('mapping')
 require('treesitter')
 
