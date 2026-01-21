@@ -2,7 +2,6 @@ require('plugins')
 require('options')
 require('mapping')
 require('treesitter')
-require('lsp')
 
 vim.cmd [[
 	autocmd! User GoyoEnter Limelight

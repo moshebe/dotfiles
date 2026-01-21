@@ -70,7 +70,11 @@ require("lazy").setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "folke/neodev.nvim",
+      "b0o/schemastore.nvim",
     },
+    config = function()
+      require('lsp')
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
