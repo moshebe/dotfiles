@@ -4,8 +4,6 @@
 	signingKey = ~/.ssh/id_ed25519
 [github]
 	user = moshebe
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
 [gpg]
 	format = ssh
 [gpg "ssh"]
@@ -45,3 +43,11 @@
 	insteadOf = https://github.com/torqio
 [url "git@github.com:stackpulse"]
 	insteadOf = https://github.com/stackpulse
+[credential]
+	helper = osxkeychain
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
