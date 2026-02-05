@@ -23,8 +23,8 @@ opt.smartcase = true -- ignore case if search pattern is all lowercase, case-sen
 opt.ignorecase = true
 opt.clipboard = opt.clipboard + 'unnamedplus' -- add clipboard support
 
--- Set colorscheme
-vim.cmd.colorscheme('gruvbox')
+-- Set colorscheme (safe load)
+pcall(vim.cmd.colorscheme, 'gruvbox')
 
 -- Rust
 vim.g.rustfmt_autosave = 1

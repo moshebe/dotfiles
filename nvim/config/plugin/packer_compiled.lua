@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.1767980792/share/lua/5.1/?.lua;/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.1767980792/share/lua/5.1/?/init.lua;/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.1767980792/lib/luarocks/rocks-5.1/?.lua;/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.1767980792/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/moshebeladev/.cache/nvim/packer_hererocks/2.1.1767980792/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -134,13 +134,18 @@ _G.packer_plugins = {
     path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/goyo.vim",
     url = "https://github.com/junegunn/goyo.vim"
   },
+  gruvbox = {
+    loaded = true,
+    path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/gruvbox",
+    url = "https://github.com/morhetz/gruvbox"
+  },
   ["limelight.vim"] = {
     loaded = true,
     path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/limelight.vim",
     url = "https://github.com/junegunn/limelight.vim"
   },
   ["lsp_signature.nvim"] = {
-    config = { "\27LJ\2\n¼\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\24extra_trigger_chars\1\3\0\0\6(\6,\17handler_opts\1\0\1\vborder\vsingle\1\0\4\tbind\2\16hint_enable\1\20floating_window\2\14doc_lines\3\5\nsetup\18lsp_signature\frequire\0" },
+    config = { "\27LJ\2\nß\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\24extra_trigger_chars\1\3\0\0\6(\6,\17handler_opts\1\0\1\vborder\vsingle\1\0\6\20floating_window\2\14doc_lines\3\5\24extra_trigger_chars\0\tbind\2\17handler_opts\0\16hint_enable\1\nsetup\18lsp_signature\frequire\0" },
     loaded = true,
     path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
     url = "https://github.com/ray-x/lsp_signature.nvim"
@@ -167,7 +172,7 @@ _G.packer_plugins = {
     url = "https://github.com/Shougo/neosnippet.vim"
   },
   ["nvim-cmp"] = {
-    config = { "\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0—\4\1\0\t\0!\0<6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0015\4\a\0005\5\5\0003\6\4\0=\6\6\5=\5\b\0045\5\v\0009\6\t\0019\6\n\6B\6\1\2=\6\f\0059\6\t\0019\6\r\6B\6\1\2=\6\14\0059\6\t\0019\6\15\6)\büÿB\6\2\2=\6\16\0059\6\t\0019\6\15\6)\b\4\0B\6\2\2=\6\17\0059\6\t\0019\6\18\6B\6\1\2=\6\19\0059\6\t\0019\6\20\0065\b\21\0B\6\2\2=\6\22\5=\5\t\0044\5\6\0005\6\23\0>\6\1\0055\6\24\0>\6\2\0055\6\25\0>\6\3\0055\6\26\0>\6\4\0055\6\27\0>\6\5\5=\5\28\0045\5\30\0009\6\29\0B\6\1\2=\6\31\5=\5 \4B\2\2\1K\0\1\0\15formatting\vformat\1\0\0\15cmp_format\fsources\1\0\1\tname\15treesitter\1\0\1\tname\tpath\1\0\1\tname\15neosnippet\1\0\1\tname\vbuffer\1\0\1\tname\rnvim_lsp\t<CR>\1\0\1\vselect\2\fconfirm\n<C-e>\nclose\n<C-f>\n<C-d>\16scroll_docs\n<C-n>\21select_next_item\n<C-p>\1\0\0\21select_prev_item\fmapping\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\bcmp\flspkind\frequire\0" },
+    config = { "\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0÷\4\1\0\t\0!\0<6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0015\4\a\0005\5\5\0003\6\4\0=\6\6\5=\5\b\0045\5\v\0009\6\t\0019\6\n\6B\6\1\2=\6\f\0059\6\t\0019\6\r\6B\6\1\2=\6\14\0059\6\t\0019\6\15\6)\büÿB\6\2\2=\6\16\0059\6\t\0019\6\15\6)\b\4\0B\6\2\2=\6\17\0059\6\t\0019\6\18\6B\6\1\2=\6\19\0059\6\t\0019\6\20\0065\b\21\0B\6\2\2=\6\22\5=\5\t\0044\5\6\0005\6\23\0>\6\1\0055\6\24\0>\6\2\0055\6\25\0>\6\3\0055\6\26\0>\6\4\0055\6\27\0>\6\5\5=\5\28\0045\5\30\0009\6\29\0B\6\1\2=\6\31\5=\5 \4B\2\2\1K\0\1\0\15formatting\vformat\1\0\1\vformat\0\15cmp_format\fsources\1\0\1\tname\15treesitter\1\0\1\tname\tpath\1\0\1\tname\15neosnippet\1\0\1\tname\vbuffer\1\0\1\tname\rnvim_lsp\t<CR>\1\0\1\vselect\2\fconfirm\n<C-e>\nclose\n<C-f>\n<C-d>\16scroll_docs\n<C-n>\21select_next_item\n<C-p>\1\0\6\n<C-d>\0\t<CR>\0\n<C-n>\0\n<C-p>\0\n<C-e>\0\n<C-f>\0\21select_prev_item\fmapping\fsnippet\1\0\4\fmapping\0\fsnippet\0\fsources\0\15formatting\0\vexpand\1\0\1\vexpand\0\0\nsetup\bcmp\flspkind\frequire\0" },
     loaded = true,
     path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
@@ -184,7 +189,7 @@ _G.packer_plugins = {
     url = "https://github.com/leoluz/nvim-dap-go"
   },
   ["nvim-dap-ui"] = {
-    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\ndapui\frequire\0" },
+    config = { "\27LJ\2\nE\0\0\4\0\4\0\t6\0\0\0006\2\1\0'\3\2\0B\0\3\3\15\0\0\0X\2\2€9\2\3\1B\2\1\1K\0\1\0\nsetup\ndapui\frequire\npcall\0" },
     loaded = true,
     path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
     url = "https://github.com/rcarriga/nvim-dap-ui"
@@ -200,11 +205,10 @@ _G.packer_plugins = {
     path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/nvim-lspfuzzy",
     url = "https://github.com/ojroques/nvim-lspfuzzy"
   },
-  ["nvim-test"] = {
-    config = { "\27LJ\2\np\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\rtermOpts\1\0\0\1\0\2\fgo_back\1\14direction\15horizontal\nsetup\14nvim-test\frequire\0" },
+  ["nvim-nio"] = {
     loaded = true,
-    path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/nvim-test",
-    url = "https://github.com/klen/nvim-test"
+    path = "/Users/moshebeladev/.local/share/nvim/site/pack/packer/start/nvim-nio",
+    url = "https://github.com/nvim-neotest/nvim-nio"
   },
   ["nvim-tree.lua"] = {
     config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14nvim-tree\frequire\0" },
@@ -324,10 +328,30 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: lsp_signature.nvim
+time([[Config for lsp_signature.nvim]], true)
+try_loadstring("\27LJ\2\nß\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\24extra_trigger_chars\1\3\0\0\6(\6,\17handler_opts\1\0\1\vborder\vsingle\1\0\6\20floating_window\2\14doc_lines\3\5\24extra_trigger_chars\0\tbind\2\17handler_opts\0\16hint_enable\1\nsetup\18lsp_signature\frequire\0", "config", "lsp_signature.nvim")
+time([[Config for lsp_signature.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+try_loadstring("\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0÷\4\1\0\t\0!\0<6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0015\4\a\0005\5\5\0003\6\4\0=\6\6\5=\5\b\0045\5\v\0009\6\t\0019\6\n\6B\6\1\2=\6\f\0059\6\t\0019\6\r\6B\6\1\2=\6\14\0059\6\t\0019\6\15\6)\büÿB\6\2\2=\6\16\0059\6\t\0019\6\15\6)\b\4\0B\6\2\2=\6\17\0059\6\t\0019\6\18\6B\6\1\2=\6\19\0059\6\t\0019\6\20\0065\b\21\0B\6\2\2=\6\22\5=\5\t\0044\5\6\0005\6\23\0>\6\1\0055\6\24\0>\6\2\0055\6\25\0>\6\3\0055\6\26\0>\6\4\0055\6\27\0>\6\5\5=\5\28\0045\5\30\0009\6\29\0B\6\1\2=\6\31\5=\5 \4B\2\2\1K\0\1\0\15formatting\vformat\1\0\1\vformat\0\15cmp_format\fsources\1\0\1\tname\15treesitter\1\0\1\tname\tpath\1\0\1\tname\15neosnippet\1\0\1\tname\vbuffer\1\0\1\tname\rnvim_lsp\t<CR>\1\0\1\vselect\2\fconfirm\n<C-e>\nclose\n<C-f>\n<C-d>\16scroll_docs\n<C-n>\21select_next_item\n<C-p>\1\0\6\n<C-d>\0\t<CR>\0\n<C-n>\0\n<C-p>\0\n<C-e>\0\n<C-f>\0\21select_prev_item\fmapping\fsnippet\1\0\4\fmapping\0\fsnippet\0\fsources\0\15formatting\0\vexpand\1\0\1\vexpand\0\0\nsetup\bcmp\flspkind\frequire\0", "config", "nvim-cmp")
+time([[Config for nvim-cmp]], false)
 -- Config for: nvim-dap-ui
 time([[Config for nvim-dap-ui]], true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\ndapui\frequire\0", "config", "nvim-dap-ui")
+try_loadstring("\27LJ\2\nE\0\0\4\0\4\0\t6\0\0\0006\2\1\0'\3\2\0B\0\3\3\15\0\0\0X\2\2€9\2\3\1B\2\1\1K\0\1\0\nsetup\ndapui\frequire\npcall\0", "config", "nvim-dap-ui")
 time([[Config for nvim-dap-ui]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")
+time([[Config for nvim-tree.lua]], false)
+-- Config for: nvim-dap-go
+time([[Config for nvim-dap-go]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vdap-go\frequire\0", "config", "nvim-dap-go")
+time([[Config for nvim-dap-go]], false)
+-- Config for: lualine.nvim
+time([[Config for lualine.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\flualine\frequire\0", "config", "lualine.nvim")
+time([[Config for lualine.nvim]], false)
 -- Config for: nvim-treesitter-context
 time([[Config for nvim-treesitter-context]], true)
 try_loadstring("\27LJ\2\nD\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\23treesitter-context\frequire\0", "config", "nvim-treesitter-context")
@@ -336,53 +360,29 @@ time([[Config for nvim-treesitter-context]], false)
 time([[Config for nvim-lspfuzzy]], true)
 try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rlspfuzzy\frequire\0", "config", "nvim-lspfuzzy")
 time([[Config for nvim-lspfuzzy]], false)
--- Config for: lsp_signature.nvim
-time([[Config for lsp_signature.nvim]], true)
-try_loadstring("\27LJ\2\n¼\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\24extra_trigger_chars\1\3\0\0\6(\6,\17handler_opts\1\0\1\vborder\vsingle\1\0\4\tbind\2\16hint_enable\1\20floating_window\2\14doc_lines\3\5\nsetup\18lsp_signature\frequire\0", "config", "lsp_signature.nvim")
-time([[Config for lsp_signature.nvim]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-try_loadstring("\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0—\4\1\0\t\0!\0<6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0015\4\a\0005\5\5\0003\6\4\0=\6\6\5=\5\b\0045\5\v\0009\6\t\0019\6\n\6B\6\1\2=\6\f\0059\6\t\0019\6\r\6B\6\1\2=\6\14\0059\6\t\0019\6\15\6)\büÿB\6\2\2=\6\16\0059\6\t\0019\6\15\6)\b\4\0B\6\2\2=\6\17\0059\6\t\0019\6\18\6B\6\1\2=\6\19\0059\6\t\0019\6\20\0065\b\21\0B\6\2\2=\6\22\5=\5\t\0044\5\6\0005\6\23\0>\6\1\0055\6\24\0>\6\2\0055\6\25\0>\6\3\0055\6\26\0>\6\4\0055\6\27\0>\6\5\5=\5\28\0045\5\30\0009\6\29\0B\6\1\2=\6\31\5=\5 \4B\2\2\1K\0\1\0\15formatting\vformat\1\0\0\15cmp_format\fsources\1\0\1\tname\15treesitter\1\0\1\tname\tpath\1\0\1\tname\15neosnippet\1\0\1\tname\vbuffer\1\0\1\tname\rnvim_lsp\t<CR>\1\0\1\vselect\2\fconfirm\n<C-e>\nclose\n<C-f>\n<C-d>\16scroll_docs\n<C-n>\21select_next_item\n<C-p>\1\0\0\21select_prev_item\fmapping\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\bcmp\flspkind\frequire\0", "config", "nvim-cmp")
-time([[Config for nvim-cmp]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")
-time([[Config for nvim-tree.lua]], false)
--- Config for: nvim-test
-time([[Config for nvim-test]], true)
-try_loadstring("\27LJ\2\np\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\rtermOpts\1\0\0\1\0\2\fgo_back\1\14direction\15horizontal\nsetup\14nvim-test\frequire\0", "config", "nvim-test")
-time([[Config for nvim-test]], false)
--- Config for: lualine.nvim
-time([[Config for lualine.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\flualine\frequire\0", "config", "lualine.nvim")
-time([[Config for lualine.nvim]], false)
--- Config for: nvim-dap-go
-time([[Config for nvim-dap-go]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vdap-go\frequire\0", "config", "nvim-dap-go")
-time([[Config for nvim-dap-go]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType terraform ++once lua require("packer.load")({'vim-terraform'}, { ft = "terraform" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cue ++once lua require("packer.load")({'vim-cue'}, { ft = "cue" }, _G.packer_plugins)]]
 vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
 vim.cmd [[au FileType elixir ++once lua require("packer.load")({'vim-elixir'}, { ft = "elixir" }, _G.packer_plugins)]]
+vim.cmd [[au FileType terraform ++once lua require("packer.load")({'vim-terraform'}, { ft = "terraform" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
-vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
-time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
-time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-cue/ftdetect/cue.vim]], true)
-vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-cue/ftdetect/cue.vim]]
-time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-cue/ftdetect/cue.vim]], false)
-time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-elixir/ftdetect/elixir.vim]], true)
-vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-elixir/ftdetect/elixir.vim]]
-time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-elixir/ftdetect/elixir.vim]], false)
 time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-terraform/ftdetect/hcl.vim]], true)
 vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-terraform/ftdetect/hcl.vim]]
 time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-terraform/ftdetect/hcl.vim]], false)
+time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
+vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
+time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
+time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-elixir/ftdetect/elixir.vim]], true)
+vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-elixir/ftdetect/elixir.vim]]
+time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-elixir/ftdetect/elixir.vim]], false)
+time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-cue/ftdetect/cue.vim]], true)
+vim.cmd [[source /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-cue/ftdetect/cue.vim]]
+time([[Sourcing ftdetect script at: /Users/moshebeladev/.local/share/nvim/site/pack/packer/opt/vim-cue/ftdetect/cue.vim]], false)
 vim.cmd("augroup END")
 
 _G._packer.inside_compile = false

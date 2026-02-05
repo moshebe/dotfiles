@@ -6,6 +6,7 @@ return require('packer').startup(function()
 
   -- Themes
   use 'rafamadriz/themes.nvim'
+  use 'morhetz/gruvbox'
 
   use {
     'nvim-lualine/lualine.nvim',
@@ -153,24 +154,30 @@ return require('packer').startup(function()
     'rcarriga/nvim-dap-ui',
     requires = {
       { 'mfussenegger/nvim-dap' },
+      { 'nvim-neotest/nvim-nio' },
     },
     config = function()
-      require('dapui').setup()
+      local ok, dapui = pcall(require, 'dapui')
+      if ok then dapui.setup() end
     end
   }
 
-  
-  use {
-    'klen/nvim-test',
-    config = function()
-      require('nvim-test').setup{
-        termOpts = {
-          direction = "horizontal",
-          go_back = false,
-        },
-      }
-    end
-  }
+
+  -- Disabled: incompatible with newer treesitter (ts_utils removed)
+  -- use {
+  --   'klen/nvim-test',
+  --   config = function()
+  --     local ok, nvimtest = pcall(require, 'nvim-test')
+  --     if ok then
+  --       nvimtest.setup{
+  --         termOpts = {
+  --           direction = "horizontal",
+  --           go_back = false,
+  --         },
+  --       }
+  --     end
+  --   end
+  -- }
 
   -- Language specific plugins
   use {

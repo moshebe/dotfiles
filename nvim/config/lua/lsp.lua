@@ -1,13 +1,19 @@
--- LSP servers configs
-local lspconfig = require('lspconfig')
-lspconfig.gopls.setup{}
-lspconfig.bufls.setup{}
-lspconfig.jsonls.setup{}
-lspconfig.html.setup{}
-lspconfig.cssls.setup{}
-lspconfig.vuels.setup{}
-lspconfig.yamlls.setup{}
-lspconfig.tsserver.setup{}
-lspconfig.bashls.setup{}
-lspconfig.terraformls.setup{}
-lspconfig.sqlls.setup{}
+-- LSP servers configs using new vim.lsp.config API (Neovim 0.11+)
+local servers = {
+  'gopls',
+  'buf_ls',
+  'jsonls',
+  'html',
+  'cssls',
+  'vuels',
+  'yamlls',
+  'ts_ls',
+  'bashls',
+  'terraformls',
+  'sqlls',
+}
+
+for _, server in ipairs(servers) do
+  vim.lsp.config[server] = {}
+  vim.lsp.enable(server)
+end
