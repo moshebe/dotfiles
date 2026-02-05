@@ -12,4 +12,4 @@ install:
 	@echo "find the installers and run them iteratively"
 	find . -name install.sh | xargs -I '{}' sh -c "{}"
 	@echo "› brew bundle"
-	brew bundle
+	brew bundle install --no-upgrade || echo "Some brew packages failed to install. Run 'brew bundle cleanup' to review."

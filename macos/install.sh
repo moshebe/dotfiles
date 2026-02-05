@@ -1,6 +1,6 @@
 if [ "$(uname)" == "Darwin" ]
 then
-	echo "› macos softwareupdate"
-	sudo softwareupdate -i -a
-	macos/defaults.sh
+	echo "› macos settings"
+	# sudo softwareupdate -i -a  # Commented out: requires password
+	./macos/defaults.sh
 fi
