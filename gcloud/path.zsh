@@ -1,1 +1,3 @@
-source "$BREW_PATH/Caskroom/gcloud-cli/latest/google-cloud-sdk/path.zsh.inc"
+if [ -f "$BREW_PATH/share/google-cloud-sdk/path.zsh.inc" ]; then
+  source "$BREW_PATH/share/google-cloud-sdk/path.zsh.inc"
+fi
