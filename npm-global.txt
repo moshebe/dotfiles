@@ -1,0 +1,4 @@
+# NPM global packages
+# Install with: xargs npm install -g < npm-global.txt
+
+corepack

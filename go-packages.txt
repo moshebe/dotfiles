@@ -1,0 +1,5 @@
+# Go packages installed via 'go install'
+# Install with: xargs -n 1 go install < go-packages.txt
+
+github.com/kostyay/claude-status/cmd/claude-status@latest
+golang.org/x/tools/gopls@latest
