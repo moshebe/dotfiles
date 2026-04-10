@@ -1,0 +1,12 @@
+{
+  "name": "moshe-pi-config",
+  "version": "1.0.0",
+  "description": "Personal pi coding agent extensions and skills",
+  "pi": {
+    "extensions": ["./pi-extensions"],
+    "skills": ["./skills"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  }
+}
