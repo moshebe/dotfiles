@@ -27,6 +27,10 @@ brew "curl"
 # Power of curl, ease of use of httpie
 brew "curlie"
 # Tool for exploring each layer in a docker image
+brew "cloudflared"
+# Deno JavaScript/TypeScript runtime
+brew "deno"
+# Tool for exploring each layer in a docker image
 brew "dive"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
@@ -44,6 +48,8 @@ brew "ffmpeg"
 brew "findutils"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
+brew "gemini-cli"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
@@ -118,6 +124,8 @@ brew "minikube"
 brew "mkcert"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Run, stop and restart local services
+brew "ollama"
 # RSS/Atom feed reader for text terminals
 brew "newsboat"
 # Port scanning utility for large networks
@@ -144,6 +152,10 @@ brew "reattach-to-user-namespace"
 brew "redis"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Utility that provides fast incremental file transfer
+brew "pi-coding-agent"
+# Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
+brew "rclone"
 # Utility that provides fast incremental file transfer
 brew "rsync"
 # Safe, concurrent, practical language
@@ -198,8 +210,8 @@ brew "reviewdog/tap/reviewdog"
 brew "sachaos/tap/viddy"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
-# GPU-accelerated terminal emulator
-cask "alacritty"
+# Command-line helper for the 1Password password manager
+cask "1password-cli"
 # Application launcher and productivity software
 cask "alfred"
 # Chromium based browser
@@ -221,6 +233,8 @@ cask "firefox"
 cask "font-hack-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Free and open-source image editor
+cask "ghostty"
 # Free and open-source image editor
 cask "gimp"
 # Desktop client for GitHub repositories
@@ -249,6 +263,8 @@ cask "netnewswire"
 cask "ngrok"
 # App to write, plan, collaborate, and get organised
 cask "notion"
+# Knowledge base and note-taking app
+cask "obsidian"
 # SQL powered operating system instrumentation and analytics
 cask "osquery"
 # Collaboration platform for API development
@@ -275,6 +291,8 @@ cask "transmission"
 cask "utm"
 # Open-source code editor
 cask "visual-studio-code"
+# Rust-based terminal
+cask "warp"
 # Multimedia player
 cask "vlc"
 # JavaScript IDE

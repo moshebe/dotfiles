@@ -72,5 +72,4 @@ done
 unset config_files
 
 [ -f /Users/moshebeladev/.docker/init-zsh.sh ] && source /Users/moshebeladev/.docker/init-zsh.sh # Added by Docker Desktop
-export PATH="$PATH:/opt/homebrew/bin/python3.9/bin"
 export PATH="$HOME/.local/bin:$PATH"

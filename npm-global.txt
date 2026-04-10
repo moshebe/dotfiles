@@ -2,3 +2,4 @@
 # Install with: xargs npm install -g < npm-global.txt
 
 corepack
+vercel

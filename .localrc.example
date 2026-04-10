@@ -1,0 +1,13 @@
+# ~/.localrc — machine-local shell overrides, never committed
+#
+# This file is sourced by zshrc before any dotfile configs are loaded.
+# Use it for secrets, machine-specific PATH entries, or overrides.
+#
+# Related: ~/.torq.local is sourced by torq/env.zsh for work secrets.
+
+# Example: API keys
+# export ANTHROPIC_API_KEY="sk-ant-..."
+# export OPENAI_API_KEY="sk-..."
+
+# Example: machine-specific config
+# export DOCKER_HOST="unix:///var/run/docker.sock"
