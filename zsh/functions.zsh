@@ -81,12 +81,6 @@ manpreview() { man -t $* | open -f -a /Applications/Preview.app/ }
 
 function xmanpage() { open x-man-page://$@ ; }
 
-function finnotify() {
-	#rundc bank &
-	rundc psagot &
-	rundc fnx &
-}
-
 function portlisten() {
 	lsof -nPi:$1 -sTCP:LISTEN
 }
@@ -172,8 +166,3 @@ function yaml2json {
   python -c 'import sys, yaml, json; print(json.dumps(yaml.safe_load(sys.stdin.read())))'
 }
 
-function rundc() {
-	cd "$HOME/dev/moshebe/$1"
-	docker-compose up --remove-orphans
-	cd -
-}

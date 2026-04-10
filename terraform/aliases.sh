@@ -1,1 +1,1 @@
-alias tf='terafform'
+alias tf="terraform"
