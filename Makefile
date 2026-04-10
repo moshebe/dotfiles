@@ -1,6 +1,6 @@
 DOTFILES = $(shell find -H $(CURDIR) -maxdepth 2 -name '*.symlink' -not -path "*.git*")
 
-all: dotfiles install
+all: dotfiles install skills
 
 .PHONY: dotfiles
 dotfiles:
@@ -13,6 +13,19 @@ install:
 	find . -name install.sh | xargs -I '{}' sh -c "{}"
 	@echo "› brew bundle"
 	brew bundle install --no-upgrade || echo "Some brew packages failed to install. Run 'brew bundle cleanup' to review."
+
+# Re-link all skills to Pi + Claude Code without running brew bundle or install scripts
+.PHONY: skills
+skills:
+	@bash $(CURDIR)/pi/install.sh
+
+# Pull latest from ai-dev-tools so torq-observability and other plugins update
+.PHONY: upgrade-plugins
+upgrade-plugins:
+	@echo "› upgrading torq ai-dev-tools"
+	@git -C "$(HOME)/dev/torqio/ai-dev-tools" pull --ff-only
+	@echo "✓ torq-observability and other plugins updated"
+	@echo "  Restart Claude Code to load the new versions."
 
 .PHONY: sync
 sync:

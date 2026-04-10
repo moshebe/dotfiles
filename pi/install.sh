@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup.sh — wire ~/.dotfiles/pi into ~/.pi
+# setup.sh — wire ~/.dotfiles/pi into ~/.pi and ~/.claude/agents
 #
 # Run this once after cloning dotfiles on a new machine.
 # Safe to re-run: uses -f (force) on symlinks so it overwrites stale links.
@@ -8,7 +8,8 @@
 #   1. Symlinks AGENTS.md (default profile global rules)
 #   2. Symlinks extensions into ~/.pi/agent/extensions/
 #   3. Symlinks skills into ~/.pi/agent/skills/
-#   4. Sets up the Torq profile AGENTS.md
+#   4. Sets up the Torq profile AGENTS.md + extensions + skills
+#   5. Symlinks skills into ~/.claude/agents/ (Claude Code)
 
 set -euo pipefail
 
@@ -34,10 +35,11 @@ done
 
 # 3. Skills — each skill is a directory containing SKILL.md
 # Pi discovers skills from ~/.pi/agent/skills/<skill-name>/
+# Use -n so macOS ln doesn't create the link *inside* an existing dir symlink
 mkdir -p "$PI_AGENT/skills"
-for skill_dir in "$DOTFILES_PI/skills/"/*/; do
+for skill_dir in "$DOTFILES_PI/skills"/*/; do
   name=$(basename "$skill_dir")
-  ln -sf "$skill_dir" "$PI_AGENT/skills/$name"
+  ln -sfn "$skill_dir" "$PI_AGENT/skills/$name"
   echo "  ✓ skill:$name → $PI_AGENT/skills/$name"
 done
 
@@ -54,10 +56,19 @@ for ext in "$DOTFILES_PI/pi-extensions/"*.ts; do
 done
 
 mkdir -p "$PI_TORQ/skills"
-for skill_dir in "$DOTFILES_PI/skills/"/*/; do
+for skill_dir in "$DOTFILES_PI/skills"/*/; do
   name=$(basename "$skill_dir")
-  ln -sf "$skill_dir" "$PI_TORQ/skills/$name"
+  ln -sfn "$skill_dir" "$PI_TORQ/skills/$name"
   echo "  ✓ torq/skill:$name → $PI_TORQ/skills/$name"
+done
+
+# 5. Claude Code agents — skills work as subagents in Claude Code
+CLAUDE_AGENTS="$HOME/.claude/agents"
+mkdir -p "$CLAUDE_AGENTS"
+for skill_dir in "$DOTFILES_PI/skills"/*/; do
+  name=$(basename "$skill_dir")
+  ln -sfn "$skill_dir" "$CLAUDE_AGENTS/$name"
+  echo "  ✓ claude:$name → $CLAUDE_AGENTS/$name"
 done
 
 echo ""
@@ -65,3 +76,4 @@ echo "Done."
 echo ""
 echo "  pi                   → personal work"
 echo "  pi --profile torq    → Torq projects (with shared skills + extensions)"
+echo "  claude               → skills available as subagents in ~/.claude/agents/"
