@@ -41,13 +41,27 @@ for skill_dir in "$DOTFILES_PI/skills/"/*/; do
   echo "  ✓ skill:$name → $PI_AGENT/skills/$name"
 done
 
-# 4. Torq profile
+# 4. Torq profile — AGENTS.md + shared skills + shared extensions
 mkdir -p "$PI_TORQ"
 ln -sf "$DOTFILES_TORQ_PI/AGENTS.md" "$PI_TORQ/AGENTS.md"
 echo "  ✓ torq/AGENTS.md → $PI_TORQ/AGENTS.md"
+
+mkdir -p "$PI_TORQ/extensions"
+for ext in "$DOTFILES_PI/pi-extensions/"*.ts; do
+  name=$(basename "$ext")
+  ln -sf "$ext" "$PI_TORQ/extensions/$name"
+  echo "  ✓ torq/ext:$name → $PI_TORQ/extensions/$name"
+done
+
+mkdir -p "$PI_TORQ/skills"
+for skill_dir in "$DOTFILES_PI/skills/"/*/; do
+  name=$(basename "$skill_dir")
+  ln -sf "$skill_dir" "$PI_TORQ/skills/$name"
+  echo "  ✓ torq/skill:$name → $PI_TORQ/skills/$name"
+done
 
 echo ""
 echo "Done."
 echo ""
 echo "  pi                   → personal work"
-echo "  pi --profile torq    → Torq projects"
+echo "  pi --profile torq    → Torq projects (with shared skills + extensions)"
