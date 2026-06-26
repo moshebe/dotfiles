@@ -43,6 +43,12 @@ then
   source ~/.localrc
 fi
 
+# Load local shell functions (secrets, credentials, etc.)
+if [[ -a "$DOTFILES/zsh/.zshrc.local" ]]
+then
+  source "$DOTFILES/zsh/.zshrc.local"
+fi
+
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
@@ -73,3 +79,6 @@ unset config_files
 
 [ -f /Users/moshebeladev/.docker/init-zsh.sh ] && source /Users/moshebeladev/.docker/init-zsh.sh # Added by Docker Desktop
 export PATH="$HOME/.local/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/moshebeladev/.antigravity/antigravity/bin:$PATH"

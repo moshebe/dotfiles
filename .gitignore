@@ -1,4 +1,5 @@
 git/gitconfig.local.symlink
+zsh/.zshrc.local
 stackpulse
 torqio
 torq
