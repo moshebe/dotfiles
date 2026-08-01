@@ -1,6 +1,31 @@
 DOTFILES = $(shell find -H $(CURDIR) -maxdepth 2 -name '*.symlink' -not -path "*.git*")
 
-all: dotfiles install skills opencode
+all: check-prereqs dotfiles install skills opencode
+
+.PHONY: check-prereqs
+check-prereqs:
+	@echo "› checking prerequisites"
+	@xcode-select -p > /dev/null 2>&1 || (echo "ERROR: Xcode CLI tools not installed. Run: xcode-select --install" && exit 1)
+	@echo "  ✓ Xcode CLI tools"
+
+.PHONY: backup
+backup:
+	@BACKUP_DIR="$$HOME/.dotfiles-backup-$$(date +%Y%m%d%H%M%S)"; \
+	echo "› backing up existing dotfiles to $$BACKUP_DIR"; \
+	mkdir -p "$$BACKUP_DIR"; \
+	$(foreach src,$(DOTFILES), \
+		target="$$HOME/.$(shell basename $(subst .symlink,,$(src)))"; \
+		[ -e "$$target" ] && cp -a "$$target" "$$BACKUP_DIR/" || true; \
+	) \
+	echo "  ✓ backup complete"
+
+.PHONY: dry-run
+dry-run:
+	@echo "› dotfiles that would be linked:"
+	@$(foreach src,$(DOTFILES),echo "  $(src) -> $(HOME)/.$(shell basename $(subst .symlink,,$(src)))";)
+	@echo "› install scripts that would run:"
+	@find . -name install.sh | sed 's/^/  /'
+	@echo "› brew bundle would install from: $(CURDIR)/Brewfile"
 
 .PHONY: dotfiles
 dotfiles:

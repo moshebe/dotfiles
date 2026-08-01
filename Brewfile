@@ -54,6 +54,8 @@ brew "gemini-cli"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# A syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Command-line option parsing utility
 brew "gnu-getopt"
 # C code prettifier
@@ -168,6 +170,8 @@ brew "tctl"
 brew "terraform"
 # Text interface for Git repositories
 brew "tig"
+# TLDR pages client (readable man page summaries)
+brew "tlrc"
 # Instant terminal sharing
 brew "tmate"
 # Display directories as trees (with optional color/HTML output)
@@ -290,7 +294,6 @@ cask "utm"
 # Open-source code editor
 cask "visual-studio-code"
 # Rust-based terminal
-cask "warp"
 # Multimedia player
 cask "vlc"
 # JavaScript IDE
@@ -299,5 +302,4 @@ cask "webstorm"
 cask "whatsapp"
 # Network protocol analyzer
 cask "wireshark-chmodbpf"
-go "github.com/kostyay/claude-status/cmd/claude-status"
-go "golang.org/x/tools/gopls"
+

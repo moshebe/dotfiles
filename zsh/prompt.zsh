@@ -1,44 +1,10 @@
 autoload colors && colors
 
-git_branch() {
-  echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
-}
+# Async git prompt (background subprocess, no blocking on every keypress)
+source ${0:A:h}/git-prompt.zsh
 
-git_dirty() {
-  if $(! git status -s &> /dev/null)
-  then
-	echo ""
-  else
-	if [[ $(git status --porcelain --untracked-files=no) == "" ]]
-	then
-	    echo ":%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
-	else
-	    echo ":%{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
-	fi
-  fi
-}
+# GCP prompt: watches config file mtime, colors by environment
+# production → red, staging → yellow, other → cyan
+source ${0:A:h}/gcloud-prompt.zsh
 
-git_prompt_info () {
- ref=$(git symbolic-ref HEAD 2>/dev/null) || return
- echo "${ref#refs/heads/}"
-}
-
-unpushed () {
-  git cherry -v @{upstream} 2>/dev/null
-}
-
-need_push () {
-  if [[ $(unpushed) == "" ]]
-  then
-    echo " "
-  else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
-  fi
-}
-
-directory_name() {
-  echo "%{$fg[cyan]%}%1/%{$reset_color%}"
-}
-
-# set propmpt
-export PROMPT=$'$(directory_name)$(git_dirty)$(need_push)› '
+RPROMPT='%{$fg[$ZSH_GCLOUD_PROMPT_COLOR]%}($ZSH_GCLOUD_PROMPT)%{$reset_color%}'

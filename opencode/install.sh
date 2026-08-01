@@ -28,7 +28,17 @@ for skill_dir in "$DOTFILES_OPENCODE/skills"/*/; do
   echo "  skill:$name -> $OPENCODE_DIR/skills/$name"
 done
 
-# 3. Wire work ai-dev-tools skills (if repo is present)
+# 3. Torq skills (from ~/.dotfiles/torq submodule)
+DOTFILES_TORQ="$HOME/.dotfiles/torq"
+if [ -d "$DOTFILES_TORQ/opencode/skills" ]; then
+  for skill_dir in "$DOTFILES_TORQ/opencode/skills"/*/; do
+    name=$(basename "$skill_dir")
+    ln -sfn "$skill_dir" "$OPENCODE_DIR/skills/$name"
+    echo "  skill:$name (torq) -> $OPENCODE_DIR/skills/$name"
+  done
+fi
+
+# 4. Wire work ai-dev-tools skills (if repo is present)
 # Set AI_DEV_TOOLS env var to override, or place repo at default path
 AI_DEV_TOOLS="${AI_DEV_TOOLS:-$HOME/dev/torqio/ai-dev-tools}"
 if [ -d "$AI_DEV_TOOLS" ]; then
