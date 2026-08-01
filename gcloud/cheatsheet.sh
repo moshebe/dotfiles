@@ -14,4 +14,4 @@ gcloud compute url-maps list
 gcloud compute url-maps invalidate-cdn-cache [URL_MAP_NAME] --path "/images/*"
 
 # accessing the database (get the password from k8s secrets)
-gcloud beta sql connect  stackpulsedb --user=<user> --database=<db> --project <project>
+gcloud beta sql connect <instance> --user=<user> --database=<db> --project <project>

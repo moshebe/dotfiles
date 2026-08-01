@@ -77,10 +77,7 @@ done
 
 unset config_files
 
-[ -f /Users/moshebeladev/.docker/init-zsh.sh ] && source /Users/moshebeladev/.docker/init-zsh.sh # Added by Docker Desktop
+[ -f ~/.docker/init-zsh.sh ] && source ~/.docker/init-zsh.sh # Docker Desktop
 export PATH="$HOME/.local/bin:$PATH"
 
-# Added by Antigravity
-export PATH="/Users/moshebeladev/.antigravity/antigravity/bin:$PATH"
-
-source "/Users/moshebeladev/Dev/torqio/app/local_env/app_dotfile.sh"
+# Machine-local tool paths (Antigravity, work env, etc.) — set in ~/.localrc

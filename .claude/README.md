@@ -1,6 +1,6 @@
-# Claude Code Configuration Structure
+# AI Tooling Configuration Structure
 
-This directory contains modular Claude Code configuration.
+This directory contains modular AI agent configuration (OpenCode, Claude Code).
 
 ## File Organization
 
@@ -10,12 +10,12 @@ This directory contains modular Claude Code configuration.
 
 ~/.dotfiles/.claude/
 ├── README.md                     # This file
-├── SETUP.md                      # Setup guide (documentation, not loaded by Claude)
+├── OPENCODE.md                   # OpenCode setup guide (documentation, not loaded by AI)
 └── frontend.md                   # 14 lines: Design guidelines (loaded in dotfiles context)
 
-~/.dotfiles/torq/.claude/
-├── TORQ.md                       # 95 lines: Team conventions (loaded in Torq projects)
-└── PERSONAL.md                   # 27 lines: Your private config (gitignored, loaded in Torq projects)
+~/.dotfiles/<work-submodule>/.claude/
+├── TORQ.md (or equivalent)       # Team conventions (loaded in work projects)
+└── PERSONAL.md                   # Your private config (gitignored, loaded in work projects)
 ```
 
 ## Effective Loading per Context
@@ -24,7 +24,7 @@ This directory contains modular Claude Code configuration.
 |---------|-------------|-------------|
 | Personal projects | Global only | 21 |
 | Dotfiles work | Global + frontend.md | 35 |
-| Torq projects | Global + TORQ.md + PERSONAL.md | 143 |
+| Work projects | Global + WORK.md + PERSONAL.md | ~143 |
 
 **Previous**: 532 lines loaded everywhere
 **Now**: 21-143 lines depending on context
@@ -34,7 +34,7 @@ This directory contains modular Claude Code configuration.
 1. ✅ **Attention budget preserved**: 143 max vs 532 original
 2. ✅ **Context-aware**: Only loads relevant config
 3. ✅ **No duplication**: Each rule lives in one place
-4. ✅ **Team sync**: Torq standards via git submodule
+4. ✅ **Team sync**: Work standards via git submodule
 5. ✅ **Privacy**: Personal info gitignored
 6. ✅ **Modularity**: Easy to maintain
 
@@ -42,7 +42,7 @@ This directory contains modular Claude Code configuration.
 
 - **Global CLAUDE.md**: Keep under 15-20 lines (universal preferences)
 - **Module files**: Keep under 60-80 lines each
-- **Documentation**: Put in SETUP.md (not loaded by Claude)
+- **Documentation**: Put in OPENCODE.md (not loaded by AI agent)
 - **Personal info**: Put in gitignored PERSONAL.md files
 
 ## Migration

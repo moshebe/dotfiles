@@ -145,8 +145,13 @@ function loadenv() {
 }
 
 function searchcode() {
-	phrase=$(urlencode $1) 
-	url="https://github.com/search?q=org%3Atorqio+$phrase&type=code"
+	phrase=$(urlencode $1)
+	org=${GITHUB_ORG:-}
+	if [ -n "$org" ]; then
+		url="https://github.com/search?q=org%3A${org}+$phrase&type=code"
+	else
+		url="https://github.com/search?q=$phrase&type=code"
+	fi
 	open $url
 }
 

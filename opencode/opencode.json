@@ -1,0 +1,97 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "gemma4:e4b": {
+          "name": "Gemma 4 E4B (fast local)",
+          "limit": { "context": 128000, "output": 32768 }
+        },
+        "gemma4:26b": {
+          "name": "Gemma 4 26B MoE (quality local)",
+          "limit": { "context": 128000, "output": 32768 }
+        },
+        "qwen3.6:35b": {
+          "name": "Qwen 3.6 35B (primary coder)",
+          "limit": { "context": 256000, "output": 32768 }
+        },
+        "devstral-small-2:24b": {
+          "name": "Devstral Small 2 24B (384K ctx)",
+          "limit": { "context": 384000, "output": 32768 }
+        },
+        "deepseek-r1:32b": {
+          "name": "DeepSeek R1 32B (deep reasoning)",
+          "limit": { "context": 128000, "output": 32768 }
+        }
+      }
+    }
+  },
+  "lsp": true,
+  "permission": {
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "todoread": "allow",
+    "todowrite": "allow",
+    "lsp": "allow"
+  },
+  "mcp": {
+    "incident.io": {
+      "type": "remote",
+      "url": "https://mcp.incident.io/mcp",
+      "oauth": {}
+    },
+    "notion": {
+      "type": "remote",
+      "url": "https://mcp.notion.com/mcp",
+      "oauth": {}
+    },
+    "slack": {
+      "type": "remote",
+      "url": "{env:MCP_SLACK_URL}",
+      "oauth": {}
+    },
+    "jellyfish": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/moshebeladev/.local/share/jellyfish-mcp/server/index.js"
+      ],
+      "enabled": false,
+      "environment": {
+        "JELLYFISH_API_TOKEN": "{env:JELLYFISH_API_TOKEN}"
+      }
+    },
+    "finout": {
+      "type": "remote",
+      "url": "https://mcp.finout.io/mcp",
+      "oauth": {}
+    },
+    "google-drive-and-email": {
+      "type": "remote",
+      "url": "{env:MCP_GDRIVE_URL}",
+      "enabled": true
+    },
+    "atlassian": {
+      "type": "local",
+      "command": [
+        "/opt/homebrew/bin/npx",
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"
+      ],
+      "enabled": true
+    },
+    "metabase": {
+      "type": "remote",
+      "url": "https://metabase.torqio.dev/api/mcp",
+      "oauth": {}
+    }
+  }
+}

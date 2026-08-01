@@ -39,8 +39,8 @@
 	keepBackup = false
 [mergetool "vimdiff"]
 	path = nvim
-[url "git@github.com:stackpulse"]
-	insteadOf = https://github.com/stackpulse
+[include]
+	path = ~/.dotfiles/torq/git/gitconfig
 [credential]
 	helper = osxkeychain
 [credential "https://github.com"]

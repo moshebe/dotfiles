@@ -152,8 +152,6 @@ brew "reattach-to-user-namespace"
 brew "redis"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# Utility that provides fast incremental file transfer
-brew "pi-coding-agent"
 # Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
 brew "rclone"
 # Utility that provides fast incremental file transfer

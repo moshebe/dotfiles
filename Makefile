@@ -1,6 +1,6 @@
 DOTFILES = $(shell find -H $(CURDIR) -maxdepth 2 -name '*.symlink' -not -path "*.git*")
 
-all: dotfiles install skills
+all: dotfiles install skills opencode
 
 .PHONY: dotfiles
 dotfiles:
@@ -19,13 +19,18 @@ install:
 skills:
 	@bash $(CURDIR)/pi/install.sh
 
-# Pull latest from ai-dev-tools so torq-observability and other plugins update
+# Wire OpenCode config (opencode.json symlink + personal skills)
+.PHONY: opencode
+opencode:
+	@bash $(CURDIR)/opencode/install.sh
+
+# Pull latest from ai-dev-tools so plugins/skills update
+AI_DEV_TOOLS ?= $(HOME)/dev/torqio/ai-dev-tools
 .PHONY: upgrade-plugins
 upgrade-plugins:
-	@echo "› upgrading torq ai-dev-tools"
-	@git -C "$(HOME)/dev/torqio/ai-dev-tools" pull --ff-only
-	@echo "✓ torq-observability and other plugins updated"
-	@echo "  Restart Claude Code to load the new versions."
+	@echo "› upgrading ai-dev-tools ($(AI_DEV_TOOLS))"
+	@git -C "$(AI_DEV_TOOLS)" pull --ff-only
+	@echo "✓ plugins updated. Restart OpenCode/Claude Code to load new versions."
 
 .PHONY: sync
 sync:
