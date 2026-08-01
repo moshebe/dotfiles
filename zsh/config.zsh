@@ -32,3 +32,15 @@ select-word-style bash
 # bring up menu selection
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+
+# Auto-load active claude profile on shell startup
+() {
+  local _cp_dir="${DOTFILES}/zsh/claude-profiles"
+  local _cp_active="${_cp_dir}/.active"
+  if [[ -f "$_cp_active" ]]; then
+    local _cp_name
+    _cp_name=$(< "$_cp_active")
+    local _cp_file="${_cp_dir}/${_cp_name}"
+    [[ -f "$_cp_file" ]] && source "$_cp_file"
+  fi
+}

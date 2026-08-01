@@ -166,3 +166,44 @@ function yaml2json {
   python -c 'import sys, yaml, json; print(json.dumps(yaml.safe_load(sys.stdin.read())))'
 }
 
+# Claude / opencode profile switcher
+# Profiles live in ~/.dotfiles/zsh/claude-profiles/<name> (git-ignored)
+# Each profile file exports ANTHROPIC_API_KEY and any optional overrides.
+#
+# Usage:
+#   claude-profile personal   # activate profile for this shell session
+#   claude-profile work       # activate profile for this shell session
+#   claude-profile            # show active profile & list available ones
+function claude-profile() {
+  local profiles_dir="$DOTFILES/zsh/claude-profiles"
+  local active_file="$profiles_dir/.active"
+
+  if [[ -z "$1" ]]; then
+    # Show current state
+    if [[ -f "$active_file" ]]; then
+      echo "active: $(cat "$active_file")"
+    else
+      echo "active: (none)"
+    fi
+    echo "available:"
+    for f in "$profiles_dir"/*(N); do
+      [[ "$(basename "$f")" == .* ]] && continue
+      echo "  $(basename "$f")"
+    done
+    return 0
+  fi
+
+  local profile="$1"
+  local profile_file="$profiles_dir/$profile"
+
+  if [[ ! -f "$profile_file" ]]; then
+    echo "claude-profile: profile '$profile' not found in $profiles_dir" >&2
+    return 1
+  fi
+
+  source "$profile_file"
+  echo "$profile" > "$active_file"
+  echo "claude-profile: switched to '$profile'"
+  echo "  ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:0:14}..."
+}
+

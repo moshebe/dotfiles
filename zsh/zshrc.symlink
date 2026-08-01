@@ -82,3 +82,5 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Added by Antigravity
 export PATH="/Users/moshebeladev/.antigravity/antigravity/bin:$PATH"
+
+source "/Users/moshebeladev/Dev/torqio/app/local_env/app_dotfile.sh"
