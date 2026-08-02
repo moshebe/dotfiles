@@ -14,6 +14,8 @@ alias num-humanize='numfmt --to=iec'
 
 alias new-uuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n'"
 
+alias gd="git diff"
+
 alias daily-update="b; gcloud components update --quiet"
 
 alias claude-whoami='echo "profile: $(cat $DOTFILES/zsh/claude-profiles/.active 2>/dev/null || echo none)"; echo "key:     ${ANTHROPIC_API_KEY:0:20}..."'
