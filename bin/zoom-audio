@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+# zoom-audio — download a password-protected Zoom cloud recording and produce
+# a plain, password-free audio file ready for transcription.
+#
+# Usage:
+#   zoom-audio "<share-url>" "<passcode>"
+#   zoom-audio "Shareable link: <share-url>
+#   Passcode: <passcode>"
+#   pbpaste | zoom-audio                # paste the "Shareable link:/Passcode:" block via stdin
+#
+# Optional flags (any position):
+#   -o, --out <dir>       Output directory (default: ~/Downloads)
+#   -f, --format <fmt>    wav|mp3 (default: wav, 16kHz mono — best for transcription)
+#   -t, --transcribe      Also transcribe (and summarize) via `cursor-agent` using a Gemini model.
+#   -k, --keep-video      Keep the downloaded source video/audio artifacts (default: cleaned up)
+#   -h, --help            Show this help
+#
+# Requires: agent-browser (logged into nothing needed, Zoom links are public+passcode),
+#           ffmpeg/ffprobe, and (for -t) a logged-in `cursor-agent` (cursor-agent status).
+#
+# How it works:
+#   Zoom's recording passcode only gates the *share page*; once past it, the
+#   "Download" action fires 4 browser downloads (video mp4, audio-only m4a,
+#   chat log, transcript vtt). We drive that with a headless browser
+#   (agent-browser), grab the audio-only file straight from Playwright's
+#   download artifacts, then re-encode it as a plain 16kHz mono file with
+#   ffmpeg. The resulting file has no password and no Zoom auth attached.
+
+set -euo pipefail
+
+SCRIPT_NAME="$(basename "$0")"
+OUT_DIR="${HOME}/Downloads"
+FORMAT="wav"
+DO_TRANSCRIBE=0
+KEEP_ARTIFACTS=0
+SESSION="zoomaudio-$$"
+
+usage() { sed -n '2,27p' "$0" | sed 's/^# \{0,1\}//'; }
+
+die() { echo "Error: $*" >&2; exit 1; }
+
+# ---------- argument parsing ----------
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -o|--out) OUT_DIR="$2"; shift 2 ;;
+    -f|--format) FORMAT="$2"; shift 2 ;;
+    -t|--transcribe) DO_TRANSCRIBE=1; shift ;;
+    -k|--keep-video) KEEP_ARTIFACTS=1; shift ;;
+    -h|--help) usage; exit 0 ;;
+    *) POSITIONAL+=("$1"); shift ;;
+  esac
+done
+
+if [[ ${#POSITIONAL[@]} -eq 2 ]]; then
+  URL="${POSITIONAL[0]}"
+  PASSCODE="${POSITIONAL[1]}"
+elif [[ ${#POSITIONAL[@]} -eq 1 ]]; then
+  BLOB="${POSITIONAL[0]}"
+elif [[ ${#POSITIONAL[@]} -eq 0 ]]; then
+  if [[ -t 0 ]]; then die "no input given. See --help"; fi
+  BLOB="$(cat -)"
+else
+  die "too many arguments. See --help"
+fi
+
+if [[ -z "${URL:-}" ]]; then
+  URL="$(printf '%s\n' "$BLOB" | grep -oE 'https://[A-Za-z0-9.-]*zoom\.us/rec/share/[^[:space:]]+' | head -1)"
+  PASSCODE="$(printf '%s\n' "$BLOB" | sed -n 's/^[[:space:]]*[Pp]asscode:[[:space:]]*//p' | head -1)"
+fi
+
+[[ -n "${URL:-}" ]] || die "could not find a zoom rec/share URL in the input"
+[[ -n "${PASSCODE:-}" ]] || die "could not find a passcode in the input"
+
+command -v agent-browser >/dev/null || die "agent-browser not found (brew install / see agent-browser skill)"
+command -v ffmpeg >/dev/null || die "ffmpeg not found (brew install ffmpeg)"
+command -v ffprobe >/dev/null || die "ffprobe not found (brew install ffmpeg)"
+[[ "$FORMAT" == "wav" || "$FORMAT" == "mp3" ]] || die "--format must be wav or mp3"
+
+mkdir -p "$OUT_DIR"
+WORKDIR="$(mktemp -d "${TMPDIR:-/tmp}/zoom-audio.XXXXXX")"
+trap 'agent-browser --session "$SESSION" close >/dev/null 2>&1 || true; [[ $KEEP_ARTIFACTS -eq 1 ]] || rm -rf "$WORKDIR"' EXIT
+
+echo "==> Opening share link…"
+ab() { agent-browser --session "$SESSION" "$@"; }
+# extract a `[ref=e6]`-style ref from a snapshot line and turn it into `@e6`
+find_ref() { grep -oE 'ref=e[0-9]+' | head -1 | sed 's/ref=/@/' || true; }
+# poll the page snapshot until a line matching $1 (grep -i pattern) shows up, return its ref
+wait_for_ref() {
+  local pattern="$1" tries="${2:-10}" ref=""
+  for ((i = 0; i < tries; i++)); do
+    ref="$(ab snapshot -i 2>/dev/null | { grep -i "$pattern" || true; } | find_ref)"
+    [[ -n "$ref" ]] && { echo "$ref"; return 0; }
+    sleep 1
+  done
+  return 1
+}
+
+ab open "$URL" >/dev/null
+ab wait --load networkidle >/dev/null 2>&1 || true
+
+# ---------- submit passcode if prompted ----------
+if ab snapshot -i 2>/dev/null | grep -qi 'textbox "Passcode"'; then
+  echo "==> Submitting passcode…"
+  REF_PASS="$(wait_for_ref 'textbox "Passcode"' 5)" || die "could not find passcode field on the share page"
+  REF_WATCH="$(wait_for_ref 'button "Watch Recording"' 5)" || die "could not find Watch Recording button on the share page"
+  ab fill "$REF_PASS" "$PASSCODE" >/dev/null
+  ab click "$REF_WATCH" >/dev/null
+  ab wait --load networkidle >/dev/null 2>&1 || true
+  sleep 1
+  if ab snapshot -i 2>/dev/null | grep -qi 'textbox "Passcode"'; then
+    die "passcode was rejected by Zoom"
+  fi
+fi
+
+# ---------- trigger the 4-file download ----------
+echo "==> Triggering download…"
+REF_DL="$(wait_for_ref 'Download (' 15)" || die "could not find the Download link on the recording page"
+
+DL_MARKER="$WORKDIR/.marker"
+sleep 1 && touch "$DL_MARKER"  # ensure marker predates the downloads below
+ab download "$REF_DL" "$WORKDIR/first-download" >/dev/null 2>&1 || true
+# Give the other 3 downloads (which agent-browser doesn't wait for) time to land.
+sleep 8
+
+# ---------- locate the audio-only file among Playwright's download artifacts ----------
+echo "==> Locating audio-only file…"
+ARTIFACT_DIRS=$(find "${TMPDIR:-/tmp}" -maxdepth 1 -type d -iname 'playwright-artifacts-*' -newer "$DL_MARKER" 2>/dev/null)
+AUDIO_SRC=""
+for d in $ARTIFACT_DIRS; do
+  for f in "$d"/*; do
+    [[ -f "$f" ]] || continue
+    if file -b "$f" | grep -qi 'M4A\|AAC'; then
+      AUDIO_SRC="$f"
+      break 2
+    fi
+  done
+done
+
+if [[ -z "$AUDIO_SRC" ]]; then
+  echo "  (no separate audio-only file found; falling back to extracting audio from the video)"
+  for d in $ARTIFACT_DIRS; do
+    for f in "$d"/*; do
+      [[ -f "$f" ]] || continue
+      if file -b "$f" | grep -qi 'ISO Media\|MP4'; then
+        AUDIO_SRC="$f"
+        break 2
+      fi
+    done
+  done
+fi
+
+[[ -n "$AUDIO_SRC" ]] || die "could not locate any downloaded media file — Zoom UI may have changed"
+
+# ---------- re-encode: plain file, no password, optimized for transcription ----------
+SLUG="$(date +%Y%m%d-%H%M%S)-zoom"
+OUT_FILE="$OUT_DIR/${SLUG}.${FORMAT}"
+echo "==> Encoding ${FORMAT} (16kHz mono) -> $OUT_FILE"
+if [[ "$FORMAT" == "wav" ]]; then
+  ffmpeg -y -loglevel error -i "$AUDIO_SRC" -vn -ac 1 -ar 16000 -c:a pcm_s16le "$OUT_FILE"
+else
+  ffmpeg -y -loglevel error -i "$AUDIO_SRC" -vn -ac 1 -ar 16000 -c:a libmp3lame -b:a 64k "$OUT_FILE"
+fi
+
+echo "==> Done: $OUT_FILE"
+ls -lh "$OUT_FILE"
+
+# ---------- optional: transcribe + summarize via cursor-agent (Gemini) ----------
+if [[ $DO_TRANSCRIBE -eq 1 ]]; then
+  command -v cursor-agent >/dev/null || die "--transcribe needs cursor-agent (brew install --cask cursor-cli; cursor-agent login)"
+
+  echo "==> Preparing chunks for cursor-agent (Gemini) transcription…"
+  CHUNK_DIR="$WORKDIR/chunks"
+  mkdir -p "$CHUNK_DIR"
+  # cursor-agent's read tool rejects .m4a by extension and caps uploads at ~4MiB
+  # (~17min @ 32kbps AAC). We remux into .mp4-named, 15min segments to stay safely
+  # under that cap. See brain: Knowledge/Tooling/ai-cli-agents.md.
+  ffmpeg -y -loglevel error -i "$OUT_FILE" -vn -ac 1 -ar 16000 -c:a aac -b:a 32k \
+    -movflags +faststart -f segment -segment_time 900 -reset_timestamps 1 \
+    "$CHUNK_DIR/chunk_%03d.mp4"
+
+  TRANSCRIPT_FILE="$OUT_DIR/${SLUG}-transcript.md"
+  : > "$TRANSCRIPT_FILE"
+  for chunk in "$CHUNK_DIR"/chunk_*.mp4; do
+    n="$(basename "$chunk")"
+    echo "  -> transcribing $n"
+    {
+      echo "## $n"
+      echo
+      cursor-agent -p --trust --model gemini-3.6-flash-high \
+        "Transcribe this audio file verbatim as plain text, preserving speaker turns if discernible. Output only the transcript, no commentary: $chunk"
+      echo
+    } >> "$TRANSCRIPT_FILE"
+  done
+  echo "==> Transcript: $TRANSCRIPT_FILE"
+
+  echo "==> Summarizing…"
+  SUMMARY_FILE="$OUT_DIR/${SLUG}-summary.md"
+  cursor-agent -p --trust --mode ask --model gemini-3.6-flash-high \
+    "Read the meeting transcript at $TRANSCRIPT_FILE and produce a concise summary with: key discussion points, decisions made, action items (with owner if mentioned), and open questions." \
+    > "$SUMMARY_FILE"
+  echo "==> Summary: $SUMMARY_FILE"
+fi
