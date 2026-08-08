@@ -5,6 +5,7 @@ alias ...="cd ../.."
 alias ll='ls -alF'
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
+alias mbcd="cd ~/dev/moshebe"
 alias path='echo -e ${PATH//:/\\n}'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
