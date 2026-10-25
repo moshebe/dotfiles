@@ -28,25 +28,22 @@ for skill_dir in "$DOTFILES_OPENCODE/skills"/*/; do
   echo "  skill:$name -> $OPENCODE_DIR/skills/$name"
 done
 
-# 3. Torq skills (from ~/.dotfiles/torq submodule)
-DOTFILES_TORQ="$HOME/.dotfiles/torq"
-if [ -d "$DOTFILES_TORQ/opencode/skills" ]; then
-  for skill_dir in "$DOTFILES_TORQ/opencode/skills"/*/; do
+# 3. Work overlay skills (WORK_OVERLAY_DIR set by the private work overlay)
+if [ -n "${WORK_OVERLAY_DIR:-}" ] && [ -d "$WORK_OVERLAY_DIR/opencode/skills" ]; then
+  for skill_dir in "$WORK_OVERLAY_DIR/opencode/skills"/*/; do
     name=$(basename "$skill_dir")
     ln -sfn "$skill_dir" "$OPENCODE_DIR/skills/$name"
-    echo "  skill:$name (torq) -> $OPENCODE_DIR/skills/$name"
+    echo "  skill:$name (work) -> $OPENCODE_DIR/skills/$name"
   done
 fi
 
-# 4. Wire work ai-dev-tools skills (if repo is present)
-# Set AI_DEV_TOOLS env var to override, or place repo at default path
-AI_DEV_TOOLS="${AI_DEV_TOOLS:-$HOME/dev/torqio/ai-dev-tools}"
-if [ -d "$AI_DEV_TOOLS" ]; then
-  echo "  Linking work ai-dev-tools skills from $AI_DEV_TOOLS..."
+# 4. Work plugin skills (AI_DEV_TOOLS set by the private work overlay)
+if [ -n "${AI_DEV_TOOLS:-}" ] && [ -d "$AI_DEV_TOOLS" ]; then
+  echo "  Linking work plugin skills from $AI_DEV_TOOLS..."
   bash "$AI_DEV_TOOLS/install.sh" 2>/dev/null || true
 fi
 
 echo ""
 echo "Done. OpenCode config:"
-echo "  opencode  -> personal + Torq skills"
+echo "  opencode  -> personal + work skills"
 echo "  Restart OpenCode to pick up changes."

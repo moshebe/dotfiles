@@ -57,22 +57,6 @@
       "url": "{env:MCP_SLACK_URL}",
       "oauth": {}
     },
-    "jellyfish": {
-      "type": "local",
-      "command": [
-        "node",
-        "/Users/moshebeladev/.local/share/jellyfish-mcp/server/index.js"
-      ],
-      "enabled": false,
-      "environment": {
-        "JELLYFISH_API_TOKEN": "{env:JELLYFISH_API_TOKEN}"
-      }
-    },
-    "finout": {
-      "type": "remote",
-      "url": "https://mcp.finout.io/mcp",
-      "oauth": {}
-    },
     "google-drive-and-email": {
       "type": "remote",
       "url": "{env:MCP_GDRIVE_URL}",
@@ -87,11 +71,6 @@
         "https://mcp.atlassian.com/v1/sse"
       ],
       "enabled": true
-    },
-    "metabase": {
-      "type": "remote",
-      "url": "https://metabase.torqio.dev/api/mcp",
-      "oauth": {}
     }
   }
 }

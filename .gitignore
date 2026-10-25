@@ -1,5 +1,3 @@
 git/gitconfig.local.symlink
 zsh/.zshrc.local
 zsh/claude-profiles/
-stackpulse
-torqio

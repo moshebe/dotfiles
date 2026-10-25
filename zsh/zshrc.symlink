@@ -81,6 +81,3 @@ unset config_files
 export PATH="$HOME/.local/bin:$PATH"
 
 # Machine-local tool paths (Antigravity, work env, etc.) — set in ~/.localrc
-
-# Torq AI dev tools plugin root (used by skill scripts)
-export CLAUDE_PLUGIN_ROOT="$HOME/dev/torqio/ai-dev-tools/claude/plugins/torq-observability"

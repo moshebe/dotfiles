@@ -24,7 +24,7 @@ make install   # brew bundle + dotfiles symlinks + skills
 
 ~/.config/opencode/     # runtime dir (managed by install.sh)
 ├── opencode.json       # -> ~/.dotfiles/opencode/opencode.json
-└── skills/             # symlinked personal + Torq skills
+└── skills/             # symlinked personal + work-overlay skills
 ```
 
 ---
@@ -61,9 +61,8 @@ Read-only ops pre-approved globally:
 | `slack` | remote OAuth | Slack (URL via `$MCP_SLACK_URL`) |
 | `google-drive-and-email` | remote | Drive + Gmail (URL via `$MCP_GDRIVE_URL`) |
 | `incident.io` | remote OAuth | Incident management |
-| `finout` | remote OAuth | Cost analytics |
-| `metabase` | remote OAuth | Torq Metabase dashboards |
-| `jellyfish` | local (disabled) | Eng analytics |
+
+Work-only MCP servers live in the private work overlay and are merged in via `$OPENCODE_CONFIG`.
 
 ---
 
@@ -77,9 +76,8 @@ Skills auto-trigger based on their `description` field. No slash command needed.
 | `github` | `gh pr`, PR operations, CI runs, GitHub issues |
 | `go-simplifier` | Go code review/simplify requests |
 
-### Torq Skills (from ai-dev-tools)
-Installed automatically by `opencode/install.sh` if `~/dev/torqio/ai-dev-tools` exists.
-See full list: `~/dev/torqio/ai-dev-tools/README.md`
+### Work Skills (optional)
+Linked by `opencode/install.sh` from the work overlay submodule and `$AI_DEV_TOOLS`, when present.
 
 ### Adding a New Skill
 ```
@@ -122,8 +120,7 @@ Both OpenCode and Claude Code use `ANTHROPIC_API_KEY` — the switcher works for
 |------|---------|-------|
 | `~/.claude/CLAUDE.md` | Global personal rules | ~21 |
 | `~/.dotfiles/.claude/frontend.md` | Frontend design rules | ~15 |
-| `~/.dotfiles/torq/.claude/TORQ.md` | Torq team conventions | ~95 |
-| `~/.dotfiles/torq/.claude/PERSONAL.md` | Personal Torq config (gitignored) | ~22 |
+| `<work-submodule>/.claude/*.md` | Team conventions (private) | — |
 
 Loaded via `@` references in project `CLAUDE.md` files.
 
@@ -155,10 +152,10 @@ mkdir -p ~/.dotfiles/zsh/claude-profiles
 # Each file contains: export ANTHROPIC_API_KEY="sk-ant-..."
 ```
 
-### Step 5: Set up Torq plugins (Torq employees only)
+### Step 5: Work overlay (optional)
 ```bash
-git clone https://github.com/torqio/ai-dev-tools ~/dev/torqio/ai-dev-tools
-make opencode   # re-run to also link Torq skills
+# Set AI_DEV_TOOLS in the private work overlay, then:
+make opencode   # re-run to also link work skills
 ```
 
 ### Step 6: Authenticate MCP servers
@@ -175,6 +172,6 @@ export MCP_GDRIVE_URL="..."
 
 1. **Skills over plugins** — OpenCode uses skills (SKILL.md), not Claude Code plugins
 2. **`make opencode`** — re-run whenever you add a skill or update opencode.json
-3. **`make upgrade-plugins`** — pulls latest ai-dev-tools from torqio repo
+3. **`make upgrade-plugins`** — pulls latest `$AI_DEV_TOOLS` (set in work overlay)
 4. **Ollama for local work** — set model to `qwen3.6:35b` for offline/private code
-5. **Profile switcher** — `claude-profile work` before Torq sessions
+5. **Profile switcher** — `claude-profile work` before work sessions

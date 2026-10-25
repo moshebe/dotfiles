@@ -14,7 +14,7 @@ This directory contains modular AI agent configuration (OpenCode, Claude Code).
 └── frontend.md                   # 14 lines: Design guidelines (loaded in dotfiles context)
 
 ~/.dotfiles/<work-submodule>/.claude/
-├── TORQ.md (or equivalent)       # Team conventions (loaded in work projects)
+├── TEAM.md (or equivalent)       # Team conventions (loaded in work projects)
 └── PERSONAL.md                   # Your private config (gitignored, loaded in work projects)
 ```
 
