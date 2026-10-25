@@ -49,11 +49,11 @@ skills:
 opencode:
 	@bash $(CURDIR)/opencode/install.sh
 
-# Pull latest from ai-dev-tools so plugins/skills update
-AI_DEV_TOOLS ?= $(HOME)/dev/torqio/ai-dev-tools
+# Pull latest work plugins/skills (AI_DEV_TOOLS set by the private work overlay)
 .PHONY: upgrade-plugins
 upgrade-plugins:
-	@echo "› upgrading ai-dev-tools ($(AI_DEV_TOOLS))"
+	@test -n "$(AI_DEV_TOOLS)" || { echo "AI_DEV_TOOLS not set"; exit 1; }
+	@echo "› upgrading work plugins ($(AI_DEV_TOOLS))"
 	@git -C "$(AI_DEV_TOOLS)" pull --ff-only
 	@echo "✓ plugins updated. Restart OpenCode/Claude Code to load new versions."
 
